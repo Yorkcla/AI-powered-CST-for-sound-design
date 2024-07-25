@@ -1,1 +1,1 @@
-# AI-powered-CST-for-sonification
+# AI-powered-CST-for-Sonification
