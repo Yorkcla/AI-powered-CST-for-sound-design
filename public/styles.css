@@ -1,22 +1,75 @@
-body {
-  font-family: Arial, sans-serif;
+/* Ensure the body takes up the full viewport height */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Source Code Pro', monospace; /* Apply Source Code Pro font */
+}
+
+.container {
+  display: flex;
+  height: 100vh; /* Full viewport height */
+}
+
+.section {
+  flex: 1; /* Each section takes up half of the container */
+  padding: 20px;
+  box-sizing: border-box; /* Includes padding in the width and height */
+  overflow-y: auto; /* Allows scrolling if content overflows */
+}
+
+#text-section {
+  background-color: #e0f7fa; /* Light gray background for text section */
+}
+
+#image-section {
+  background-color: #4db6ac; /* Slightly darker gray for image section */
+}
+
+textarea, input {
+  width: 100%; /* Full width of the container */
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  font-family: 'Source Code Pro', monospace; /* Consistent font for text area and input */
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 12px;
+}
+
+/* Chat history styling */
+.chat-history {
+  border: 1px solid #ccc; /* Light border for the chat history */
+  padding: 10px;
+  background-color: #fff; /* White background for the chat history */
+  max-height: calc(100vh - 200px); /* Limit height for scrolling */
+  overflow-y: auto; /* Enable scrolling if content overflows */
+  overflow-x: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px;
 }
 
-#prompt {
-  width: 80%;
-  height: 100px;
+.message {
   margin-bottom: 10px;
+  padding: 5px;
+  max-width: 100%;
+  word-wrap: break-word;
+  box-sizing: border-box;
 }
 
-#response {
-  white-space: pre-wrap;
-  background: #f4f4f4;
-  padding: 10px;
-  width: 80%;
-  height: 300px;
-  overflow: auto;
+.user-message {
+  align-self: flex-end; /* Align user messages to the right */
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.chatbot-message {
+  align-self: flex-start; /* Align chatbot messages to the left */
+  background-color: #c1e1c5; /* Light blue background for chatbot messages */
+  border-radius: 10px;
+}
+
+.message p {
+  margin: 0;
 }
