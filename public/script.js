@@ -3,7 +3,7 @@ document.getElementById('text-form').addEventListener('submit', async (event) =>
     const prompt = document.getElementById('text-prompt').value;
 
     try {
-        const response = await fetch('http://localhost:5500/generate-text', {
+        const response = await fetch('http://localhost:3001/generate-text', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ document.getElementById('image-form').addEventListener('submit', async (event) =
     const prompt = document.getElementById('image-prompt').value;
 
     try {
-        const response = await fetch('http://localhost:5500/generate-image', {
+        const response = await fetch('http://localhost:3001/generate-image', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
