@@ -73,3 +73,8 @@ button {
 .message p {
   margin: 0;
 }
+
+/* Add margin to image result */
+#image-result {
+  margin-top: 10px; /* Add space between button and generated image */
+}
