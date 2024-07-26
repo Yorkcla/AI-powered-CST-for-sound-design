@@ -13,6 +13,12 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+// CORS middleware
+const cors = require('cors');
+app.use(cors({
+    origin: 'http://127.0.0.1:5501'  // Allow requests from this origin
+}));
+
 // Middleware to parse JSON bodies
 app.use(express.json());
 
@@ -21,9 +27,9 @@ app.post('/generate-text', async (req, res) => {
     const { prompt } = req.body;
 
     try {
-        const response = await openai.createCompletion({
-            model: 'text-davinci-003',
-            prompt: prompt,
+        const response = await openai.createChatCompletion({
+            model: 'gpt-4o-mini',
+            messages: [{ role: 'user', content: prompt }],
             max_tokens: 150,
         });
         
@@ -41,6 +47,9 @@ app.post('/generate-image', async (req, res) => {
         const response = await openai.createImage({
             prompt: prompt,
             n: 1,
+            model: 'dall-e-3',
+            quality: 'hd',
+            style: 'vivid',
             size: '1024x1024'
         });
         

@@ -3,27 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenAI API Demo</title>
+    <title>AI-Powered CST for Sonification</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap"> <!-- Link to Source Code Pro -->
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file -->
 </head>
 <body>
-    <h1>OpenAI API Demo</h1>
-    
-    <h2>Generate Text</h2>
-    <form id="text-form">
-        <label for="text-prompt">Prompt:</label>
-        <input type="text" id="text-prompt" name="text-prompt">
-        <button type="submit">Generate Text</button>
-    </form>
-    <pre id="text-result"></pre>
-
-    <h2>Generate Image</h2>
-    <form id="image-form">
-        <label for="image-prompt">Prompt:</label>
-        <input type="text" id="image-prompt" name="image-prompt">
-        <button type="submit">Generate Image</button>
-    </form>
-    <div id="image-result"></div>
-
+    <div class="container">
+        <div class="section" id="text-section">
+            <h2>Text</h2>
+            <form id="text-form">
+                <label for="text-prompt">Create harmonic foundations!:</label>
+                <input type="text" id="text-prompt" name="text-prompt">
+                <button type="submit">Click</button>
+            </form>
+            <div id="text-result"></div>
+        </div>
+        <div class="section" id="image-section">
+            <h2>Image</h2>
+            <form id="image-form">
+                <label for="image-prompt">Visualise your storyboard!:</label>
+                <input type="text" id="image-prompt" name="image-prompt">
+                <button type="submit">Click</button>
+            </form>
+            <div id="image-result"></div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
