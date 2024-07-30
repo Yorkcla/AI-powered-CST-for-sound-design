@@ -46,6 +46,15 @@ document.addEventListener('DOMContentLoaded', function () {
     showStep(currentStep);
     modal.style.display = 'block';
 
+    // Next Step Button
+    const nextStepBtn = document.getElementById('next-step-btn');
+
+    if (nextStepBtn) {
+        nextStepBtn.addEventListener('click', () => {
+            window.location.href = 'index2.html'; // Replace with the URL of your next HTML file
+        });
+    }
+
     // Text form for the first half
     document.getElementById('text-form-1').addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -113,6 +122,31 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+        // Add button to add new storyboard boxes
+        const addBoxBtn = document.createElement('button');
+        addBoxBtn.textContent = 'Add Storyboard Box';
+        addBoxBtn.style.marginBottom = '20px';
+        document.getElementById('half-two').insertBefore(addBoxBtn, document.querySelector('.storyboard-container'));
+    
+        let currentBoxCount = 4;
+    
+        addBoxBtn.addEventListener('click', () => {
+            if (currentBoxCount < 8) {
+                currentBoxCount++;
+                const newBox = document.createElement('div');
+                newBox.classList.add('storyboard-box');
+                newBox.innerHTML = `
+                    <h3>Phase ${currentBoxCount}</h3>
+                    <textarea class="storyboard-text" placeholder="Write your story here..."></textarea>
+                    <div class="storyboard-image" id="storyboard-image-${currentBoxCount}">No image</div>
+                `;
+                document.querySelector('.storyboard-container').appendChild(newBox);
+            }
+            if (currentBoxCount >= 8) {
+                addBoxBtn.disabled = true; // Disable button if maximum reached
+            }
+        });
+
     // Function to create and append a new message element
     function appendMessage(role, content) {
         const chatHistory = document.getElementById('text-result-1');
@@ -122,4 +156,13 @@ document.addEventListener('DOMContentLoaded', function () {
         chatHistory.appendChild(messageDiv);
         chatHistory.scrollTop = chatHistory.scrollHeight; // Auto-scroll to the bottom
     }
+
+    function updateProgressBar(percentage) {
+        const progressBar = document.getElementById('progress-bar');
+        progressBar.style.width = `${percentage}%`;
+    }
+    
+    // Example: Update the progress bar to 50%
+    updateProgressBar(30);
+    
 });
