@@ -85,11 +85,11 @@ html, body {
 
 /* Button styles for "Next Step" */
 .next-step-btn {
-  position: absolute;
-  top: 10px; /* Adjust as needed */
-  right: 1000px; /* Adjust as needed */
+  position: fixed;
+  top: 2vh; /* Adjust as needed */
+  right: 52vw; /* Adjust as needed */
   padding: 10px 20px;
-  font-size: 14px;
+  font-size: 12px;
   background-color: #adaddb;
   color: white;
   border: none;
@@ -115,6 +115,12 @@ textarea, input {
 button {
   padding: 10px 20px;
   font-size: 12px;
+  background-color: #adaddb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 10; /* Ensure button is above other content */
 }
 
 /* Chat history styling */
@@ -174,10 +180,11 @@ button {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 17% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+  height: 20%;
 }
 
 .close-btn {
