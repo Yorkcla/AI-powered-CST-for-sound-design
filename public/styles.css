@@ -55,6 +55,7 @@ html, body {
 }
 
 .storyboard-box {
+  position: relative;
   width: calc(50% - 20px);
   padding: 10px;
   border: 1px solid #ccc;
@@ -226,4 +227,18 @@ button {
   background-color: #adaddb; /* Color of the progress */
   border-radius: 10px; /* Rounded corners */
   transition: width 0.3s ease; /* Smooth transition */
+}
+
+/* Checkbox */
+
+.phase-checkbox {
+  position: absolute;
+  top: 5%; /* Adjust based on your design needs */
+  right: 20%; /* Adjust to position the checkbox in the desired location */
+  transform: scale(1.2); /* Make checkbox larger if needed */
+}
+
+/* Hide the label visually but keep it accessible */
+.checkbox-label {
+  display: none;
 }
