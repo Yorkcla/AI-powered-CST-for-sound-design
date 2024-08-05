@@ -136,8 +136,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const newBox = document.createElement('div');
                 newBox.classList.add('storyboard-box');
                 newBox.innerHTML = `
+                    <input type="checkbox" class="phase-checkbox" id="phase${currentBoxCount}-checkbox">
+                    <label for="phase${currentBoxCount}-checkbox" class="checkbox-label"></label>
                     <h3>Phase ${currentBoxCount}</h3>
-                    <textarea class="storyboard-text" placeholder="Write your story here..."></textarea>
+                    <textarea class="storyboard-text" placeholder="Enter text for Box ${currentBoxCount}"></textarea>
                     <div class="storyboard-image" id="storyboard-image-${currentBoxCount}">No image</div>
                 `;
                 document.querySelector('.storyboard-container').appendChild(newBox);
