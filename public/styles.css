@@ -124,6 +124,10 @@ button {
   z-index: 10; /* Ensure button is above other content */
 }
 
+button:hover {
+  background-color: #00796b;
+}
+
 /* Chat history styling */
 .chat-history {
   border: 1px solid #ccc; /* Light border for the chat history */
