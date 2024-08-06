@@ -159,6 +159,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 <h3>Phase ${currentBoxCount}</h3>
                 <textarea class="storyboard-text" placeholder="Enter text for Box ${currentBoxCount}"></textarea>
                 <div class="storyboard-image" id="storyboard-image-${currentBoxCount}">No image</div>
+                <input type="file" class="file-input" id="file-input-${currentBoxCount}" accept="image/*">
+                <button type="button" class="upload-btn" data-box-id="${currentBoxCount}">Upload Image</button>
             `;
             document.querySelector('.storyboard-container').appendChild(newBox);
         }
