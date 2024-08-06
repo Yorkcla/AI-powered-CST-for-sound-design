@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Image generation response:', data);
 
             const imgUrl = data.data[0].url;
-            document.getElementById('image-result-1').innerHTML = `<img src="${imgUrl}" alt="Generated Image" />`;
+            document.getElementById('image-result-1').innerHTML = `<img src="${imgUrl}" alt="Generated Image" style="width: 100%; height: auto;">`;
             
             // Clear the image prompt input field
             document.getElementById('image-prompt-1').value = '';
