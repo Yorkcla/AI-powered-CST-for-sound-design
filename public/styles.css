@@ -257,7 +257,7 @@ button:hover {
   width: 100%;
   max-width: 700px; /* or any max width you prefer */
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: auto;
 }
 
 .upload-btn {
