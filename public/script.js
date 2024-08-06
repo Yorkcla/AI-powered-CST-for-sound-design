@@ -185,3 +185,29 @@ document.addEventListener('DOMContentLoaded', function () {
     updateProgressBar(30);
     
 });
+
+    //uploading a file
+    document.querySelectorAll('.upload-btn').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const boxId = event.target.getAttribute('data-box-id');
+            const fileInput = document.getElementById(`file-input-${boxId}`);
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = e.target.result;
+                    imgElement.style.width = '100%';
+                    imgElement.style.height = 'auto';
+
+                    const imageBox = document.getElementById(`image-box-${boxId}`);
+                    imageBox.innerHTML = '';
+                    imageBox.appendChild(imgElement);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please select an image file first.');
+            }
+        });
+    });

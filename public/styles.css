@@ -77,11 +77,17 @@ html, body {
 }
 
 .storyboard-image {
-  height: 100px;
+  height: 200px;
   background-color: #f0f0f0;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.storyboard-image img {
+  max-width: 100%; /* Fit the width of the container */
+  max-height: 100%; /* Fit the height of the container */
+  object-fit: contain; /* Maintain aspect ratio without cropping */
 }
 
 /* Button styles for "Next Step" */
@@ -173,7 +179,7 @@ button:hover {
 .modal {
   display: none; 
   position: fixed; 
-  z-index: 1; 
+  z-index: 999; 
   left: 0;
   top: 0;
   width: 100%;
@@ -252,4 +258,19 @@ button:hover {
   max-width: 700px; /* or any max width you prefer */
   height: auto;
   margin-bottom: 20px;
+}
+
+.upload-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #adaddb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.upload-btn:hover {
+  background-color: #00796b;
 }
