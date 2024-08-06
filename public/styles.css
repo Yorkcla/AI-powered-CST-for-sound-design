@@ -243,7 +243,7 @@ button:hover {
 
 .phase-checkbox {
   position: absolute;
-  top: 5%; /* Adjust based on your design needs */
+  top: 3%; /* Adjust based on your design needs */
   right: 20%; /* Adjust to position the checkbox in the desired location */
   transform: scale(1.2); /* Make checkbox larger if needed */
 }

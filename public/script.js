@@ -130,41 +130,42 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('image-result-1').addEventListener('click', (event) => {
         if (event.target && event.target.id === 'save-image') {
             const imgUrl = event.target.getAttribute('data-url');
+
+            // Create and click a link element to download the image
             const link = document.createElement('a');
             link.href = imgUrl;
             link.download = 'generated-image.png';
-            document.body.appendChild(link);
+            link.target = '_blank'; //opens the image in a new tap
             link.click();
-            document.body.removeChild(link);
         }
     });
 
-        // Add button to add new storyboard boxes
-        const addBoxBtn = document.createElement('button');
-        addBoxBtn.textContent = 'Add Storyboard Box';
-        addBoxBtn.style.marginBottom = '20px';
-        document.getElementById('half-two').insertBefore(addBoxBtn, document.querySelector('.storyboard-container'));
-    
-        let currentBoxCount = 4;
-    
-        addBoxBtn.addEventListener('click', () => {
-            if (currentBoxCount < 8) {
-                currentBoxCount++;
-                const newBox = document.createElement('div');
-                newBox.classList.add('storyboard-box');
-                newBox.innerHTML = `
-                    <input type="checkbox" class="phase-checkbox" id="phase${currentBoxCount}-checkbox">
-                    <label for="phase${currentBoxCount}-checkbox" class="checkbox-label"></label>
-                    <h3>Phase ${currentBoxCount}</h3>
-                    <textarea class="storyboard-text" placeholder="Enter text for Box ${currentBoxCount}"></textarea>
-                    <div class="storyboard-image" id="storyboard-image-${currentBoxCount}">No image</div>
-                `;
-                document.querySelector('.storyboard-container').appendChild(newBox);
-            }
-            if (currentBoxCount >= 8) {
-                addBoxBtn.disabled = true; // Disable button if maximum reached
-            }
-        });
+    // Add button to add new storyboard boxes
+    const addBoxBtn = document.createElement('button');
+    addBoxBtn.textContent = 'Add Storyboard Box';
+    addBoxBtn.style.marginBottom = '20px';
+    document.getElementById('half-two').insertBefore(addBoxBtn, document.querySelector('.storyboard-container'));
+
+    let currentBoxCount = 4;
+
+    addBoxBtn.addEventListener('click', () => {
+        if (currentBoxCount < 8) {
+            currentBoxCount++;
+            const newBox = document.createElement('div');
+            newBox.classList.add('storyboard-box');
+            newBox.innerHTML = `
+                <input type="checkbox" class="phase-checkbox" id="phase${currentBoxCount}-checkbox">
+                <label for="phase${currentBoxCount}-checkbox" class="checkbox-label"></label>
+                <h3>Phase ${currentBoxCount}</h3>
+                <textarea class="storyboard-text" placeholder="Enter text for Box ${currentBoxCount}"></textarea>
+                <div class="storyboard-image" id="storyboard-image-${currentBoxCount}">No image</div>
+            `;
+            document.querySelector('.storyboard-container').appendChild(newBox);
+        }
+        if (currentBoxCount >= 8) {
+            addBoxBtn.disabled = true; // Disable button if maximum reached
+        }
+    });
 
     // Function to create and append a new message element
     function appendMessage(role, content) {
