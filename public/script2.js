@@ -1,54 +1,5 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const modal = document.getElementById('onboarding-modal');
-    const closeBtn = document.querySelector('.close-btn');
-    const nextBtns = document.querySelectorAll('.next-btn');
-    const prevBtns = document.querySelectorAll('.prev-btn');
-    const finishBtn = document.querySelector('.finish-btn');
-    const steps = document.querySelectorAll('.step');
-    let currentStep = 0;
 
-    function showStep(step) {
-        steps.forEach((el, index) => {
-            el.style.display = index === step ? 'block' : 'none';
-        });
-    }
-
-    function nextStep() {
-        if (currentStep < steps.length - 1) {
-            currentStep++;
-            showStep(currentStep);
-        }
-    }
-
-    function prevStep() {
-        if (currentStep > 0) {
-            currentStep--;
-            showStep(currentStep);
-        }
-    }
-
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    nextBtns.forEach(btn => {
-        btn.addEventListener('click', nextStep);
-    });
-
-    prevBtns.forEach(btn => {
-        btn.addEventListener('click', prevStep);
-    });
-
-    finishBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    showStep(currentStep);
-    modal.style.display = 'block';
-
-});
-
-// Next Step Button
+    // Next Step Button
     const nextStepBtn = document.getElementById('next-step-btn');
 
     if (nextStepBtn) {
@@ -89,56 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } catch (error) {
             console.error('Error:', error);
             appendMessage('chatbot', 'Error: ' + error.message);
-        }
-    });
-
-    // Image form for the first half
-    document.getElementById('image-form-1').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const prompt = document.getElementById('image-prompt-1').value;
-    
-        try {
-            const response = await fetch('http://localhost:3001/generate-image', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ prompt })
-            });
-    
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-    
-            const data = await response.json();
-            console.log('Image generation response:', data);
-    
-            const imgUrl = data.data[0].url;
-            const imageHtml = `
-                <img src="${imgUrl}" alt="Generated Image" style="width: 100%; height: auto;">
-                <button id="save-image" data-url="${imgUrl}">Save Image</button>
-            `;
-            document.getElementById('image-result-1').innerHTML = imageHtml;
-            
-            // Clear the image prompt input field
-            document.getElementById('image-prompt-1').value = '';
-        } catch (error) {
-            console.error('Error:', error);
-            document.getElementById('image-result-1').textContent = 'Error: ' + error.message;
-        }
-    });
-    
-    // Event listener for saving the image
-    document.getElementById('image-result-1').addEventListener('click', (event) => {
-        if (event.target && event.target.id === 'save-image') {
-            const imgUrl = event.target.getAttribute('data-url');
-
-            // Create and click a link element to download the image
-            const link = document.createElement('a');
-            link.href = imgUrl;
-            link.download = 'generated-image.png';
-            link.target = '_blank'; //opens the image in a new tap
-            link.click();
         }
     });
 
@@ -187,7 +88,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     // Example: Update the progress bar to 50%
-    updateProgressBar(30);
+    updateProgressBar(60);
+    
 
     //uploading a file
     document.querySelectorAll('.upload-btn').forEach(button => {
