@@ -110,15 +110,32 @@ document.addEventListener('DOMContentLoaded', function () {
     
             const data = await response.json();
             console.log('Image generation response:', data);
-
+    
             const imgUrl = data.data[0].url;
-            document.getElementById('image-result-1').innerHTML = `<img src="${imgUrl}" alt="Generated Image" style="width: 100%; height: auto;">`;
+            const imageHtml = `
+                <img src="${imgUrl}" alt="Generated Image" style="width: 100%; height: auto;">
+                <button id="save-image" data-url="${imgUrl}">Save Image</button>
+            `;
+            document.getElementById('image-result-1').innerHTML = imageHtml;
             
             // Clear the image prompt input field
             document.getElementById('image-prompt-1').value = '';
         } catch (error) {
             console.error('Error:', error);
             document.getElementById('image-result-1').textContent = 'Error: ' + error.message;
+        }
+    });
+    
+    // Event listener for saving the image
+    document.getElementById('image-result-1').addEventListener('click', (event) => {
+        if (event.target && event.target.id === 'save-image') {
+            const imgUrl = event.target.getAttribute('data-url');
+            const link = document.createElement('a');
+            link.href = imgUrl;
+            link.download = 'generated-image.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     });
 
