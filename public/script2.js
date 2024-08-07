@@ -43,35 +43,6 @@
         }
     });
 
-    // Add button to add new storyboard boxes
-    const addBoxBtn = document.createElement('button');
-    addBoxBtn.textContent = 'Add Storyboard Box';
-    addBoxBtn.style.marginBottom = '20px';
-    document.getElementById('half-two').insertBefore(addBoxBtn, document.querySelector('.storyboard-container'));
-
-    let currentBoxCount = 4;
-
-    addBoxBtn.addEventListener('click', () => {
-        if (currentBoxCount < 8) {
-            currentBoxCount++;
-            const newBox = document.createElement('div');
-            newBox.classList.add('storyboard-box');
-            newBox.innerHTML = `
-                <input type="checkbox" class="phase-checkbox" id="phase${currentBoxCount}-checkbox">
-                <label for="phase${currentBoxCount}-checkbox" class="checkbox-label"></label>
-                <h3>Phase ${currentBoxCount}</h3>
-                <textarea class="storyboard-text" placeholder="Enter text for Box ${currentBoxCount}"></textarea>
-                <div class="storyboard-image" id="storyboard-image-${currentBoxCount}">No image</div>
-                <input type="file" class="file-input" id="file-input-${currentBoxCount}" accept="image/*">
-                <button type="button" class="upload-btn" data-box-id="${currentBoxCount}">Upload Image</button>
-            `;
-            document.querySelector('.storyboard-container').appendChild(newBox);
-        }
-        if (currentBoxCount >= 8) {
-            addBoxBtn.disabled = true; // Disable button if maximum reached
-        }
-    });
-
     // Function to create and append a new message element
     function appendMessage(role, content) {
         const chatHistory = document.getElementById('text-result-1');
@@ -117,7 +88,6 @@
         });
     });
 
-    //loading thems and phases
     document.addEventListener('DOMContentLoaded', function() {
         const theme = localStorage.getItem('storyboardTheme');
         if (theme) {
@@ -125,17 +95,29 @@
         } else {
             alert('No storyboard theme found');
         }
-
-        function loadPhase() {
-            for (let i = 1; i <= 4; i++) {
-                const phase = localStorage.getItem(`storyboardPhase-${i}`);
-                if (phase) {
-                    document.getElementById(`text-box-${i}`).value = phase;
-                } else {
-                    document.getElementById(`text-box-${i}`).value = 'No data found for this phase';
-                }
+    
+        let currentBoxCount = parseInt(localStorage.getItem('currentBoxCount') || '4', 10);
+    
+        function loadPhases() {
+            // Clear existing boxes if needed
+            const container = document.querySelector('.storyboard-container');
+            container.innerHTML = ''; // Clear old boxes
+    
+            for (let i = 1; i <= currentBoxCount; i++) {
+                const phase = localStorage.getItem(`storyboardPhase-${i}`) || '';
+                const newBox = document.createElement('div');
+                newBox.classList.add('storyboard-box');
+                newBox.innerHTML = `
+                    <h3>Phase ${i}</h3>
+                    <textarea id="text-box-${i}" placeholder="Enter text for Box ${i}" readonly>${phase}</textarea>
+                    <div class="storyboard-image" id="storyboard-image-${i}">No image</div>
+                    <!-- Image upload functionality can be added if needed -->
+                `;
+                container.appendChild(newBox);
             }
         }
-
-        loadPhase();
+    
+        loadPhases();
     });
+    
+    
