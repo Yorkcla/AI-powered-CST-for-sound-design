@@ -142,36 +142,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Add button to add new storyboard boxes
-    const addBoxBtn = document.createElement('button');
-    addBoxBtn.textContent = 'Add Storyboard Box';
-    addBoxBtn.style.marginBottom = '20px';
-    document.getElementById('half-two').insertBefore(addBoxBtn, document.querySelector('.storyboard-container'));
-
-    let currentBoxCount = 4;
-
-    addBoxBtn.addEventListener('click', () => {
-        if (currentBoxCount < 8) {
-            currentBoxCount++;
-            const newBox = document.createElement('div');
-            newBox.classList.add('storyboard-box');
-            newBox.innerHTML = `
-                <h3>Phase ${currentBoxCount}</h3>
-                <textarea id="text-box-${currentBoxCount}" placeholder="Enter text for Box ${currentBoxCount}"></textarea>
-                <div class="storyboard-image" id="storyboard-image-${currentBoxCount}">No image</div>
-                <input type="file" class="file-input" id="file-input-${currentBoxCount}" accept="image/*">
-                <button type="button" class="upload-btn" data-box-id="${currentBoxCount}">Upload Image</button>
-            `;
-            document.querySelector('.storyboard-container').appendChild(newBox);
-
-            // Save the updated number of boxes
-            localStorage.setItem('currentBoxCount', currentBoxCount);
-        }
-        if (currentBoxCount >= 8) {
-            addBoxBtn.disabled = true; // Disable button if maximum reached
-        }
-    });
-
     // Function to create and append a new message element
     function appendMessage(role, content) {
         const chatHistory = document.getElementById('text-result-1');
@@ -190,13 +160,41 @@ document.addEventListener('DOMContentLoaded', function () {
     // Example: Update the progress bar to 50%
     updateProgressBar(30);
 
-    //uploading a file
-    document.querySelectorAll('.upload-btn').forEach(button => {
-        button.addEventListener('click', (event) => {
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const addBoxBtn = document.createElement('button');
+        addBoxBtn.textContent = 'Add Storyboard Box';
+        addBoxBtn.style.marginBottom = '20px';
+        document.getElementById('half-two').insertBefore(addBoxBtn, document.querySelector('.storyboard-container'));
+    
+        let currentBoxCount = 4;
+    
+        addBoxBtn.addEventListener('click', () => {
+            if (currentBoxCount < 8) {
+                currentBoxCount++;
+                const newBox = document.createElement('div');
+                newBox.classList.add('storyboard-box');
+                newBox.innerHTML = `
+                    <h3>Phase ${currentBoxCount}</h3>
+                    <textarea id="text-box-${currentBoxCount}" placeholder="Enter text for Box ${currentBoxCount}"></textarea>
+                    <div class="storyboard-image" id="image-box-${currentBoxCount}">No image</div>
+                    <input type="file" class="file-input" id="file-input-${currentBoxCount}" accept="image/*">
+                    <button type="button" class="upload-btn" data-box-id="${currentBoxCount}">Upload Image</button>
+                `;
+                document.querySelector('.storyboard-container').appendChild(newBox);
+                attachUploadEventListener(); // Attach event listeners for the new box
+                localStorage.setItem('currentBoxCount', currentBoxCount);
+                if (currentBoxCount >= 8) {
+                    addBoxBtn.disabled = true;
+                }
+            }
+        });
+    
+        // Function to handle image uploading
+        function handleImageUpload(event) {
             const boxId = event.target.getAttribute('data-box-id');
             const fileInput = document.getElementById(`file-input-${boxId}`);
             const file = fileInput.files[0];
-
+    
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -204,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     imgElement.src = e.target.result;
                     imgElement.style.width = '100%';
                     imgElement.style.height = 'auto';
-
+    
                     const imageBox = document.getElementById(`image-box-${boxId}`);
                     imageBox.innerHTML = '';
                     imageBox.appendChild(imgElement);
@@ -213,9 +211,19 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 alert('Please select an image file first.');
             }
-        });
+        }
+    
+        // Function to attach event listeners for image uploading
+        function attachUploadEventListener() {
+            document.querySelectorAll('.upload-btn').forEach(button => {
+                button.addEventListener('click', handleImageUpload);
+            });
+        }
+    
+        // Attach event listeners for initial boxes
+        attachUploadEventListener();
     });
-
+    
     //saving theme, phase,
     document.addEventListener('DOMContentLoaded', function() {
         function saveTheme() {
