@@ -212,3 +212,15 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    //saving the theme 
+    document.addEventListener('DOMContentLoaded', function() {
+        function saveTheme() {
+            const theme = document.getElementById('text-theme-1').value;
+            localStorage.setItem('storyboardTheme', theme);
+            alert('Theme saved!');
+        }
+
+        // Make saveTheme accessible globally
+        window.saveTheme = saveTheme;
+    });
