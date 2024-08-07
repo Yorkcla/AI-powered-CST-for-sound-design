@@ -116,3 +116,13 @@
             }
         });
     });
+
+    //loading the theme
+    window.onload = function() {
+        const theme = localStorage.getItem('storyboardTheme');
+        if (theme) {
+            document.getElementById('text-theme-1').value = theme;
+        } else {
+            alert('No storyboard theme found');
+        }
+    };
