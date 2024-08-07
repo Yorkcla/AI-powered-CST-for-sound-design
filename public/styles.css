@@ -95,7 +95,7 @@ html, body {
   position: fixed;
   top: 2vh; /* Adjust as needed */
   right: 52vw; /* Adjust as needed */
-  padding: 10px 10px;
+  padding: 5px 5px;
   font-size: 12px;
   background-color: #adaddb;
   color: white;
@@ -109,6 +109,18 @@ html, body {
   background-color: #00796b;
 }
 
+/* Positioning for Next Step button */
+#next-step-btn {
+  top: 1vh; /* Adjust as needed */
+  right: 51vw; /* Adjust as needed */
+}
+
+/* Positioning for Previous Step button */
+#previous-step-btn {
+  top: 1vh; /* Same vertical alignment as Next Step */
+  right: 56vw; /* Adjust as needed to place to the left of Next Step */
+}
+
 
 /* Form styling */
 textarea, input {
@@ -120,7 +132,7 @@ textarea, input {
 }
 
 button {
-  padding: 10px 10px;
+  padding: 5px 5px;
   font-size: 12px;
   background-color: #adaddb;
   color: white;
@@ -262,7 +274,7 @@ button:hover {
 
 .upload-btn {
   display: inline-block;
-  padding: 10px 10px;
+  padding: 5px 5px;
   margin-top: 10px;
   background-color: #adaddb;
   color: white;
