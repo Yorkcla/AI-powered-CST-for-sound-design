@@ -227,19 +227,34 @@ document.addEventListener('DOMContentLoaded', function () {
         function savePhase() {
             // Use currentBoxCount directly
             const currentBoxCount = parseInt(localStorage.getItem('currentBoxCount') || '4', 10);
-    
+        
             for (let i = 1; i <= currentBoxCount; i++) {
+                // Save text data
                 const textBox = document.getElementById(`text-box-${i}`);
                 if (textBox) {
                     const phase = textBox.value;
                     localStorage.setItem(`storyboardPhase-${i}`, phase);
                 }
+        
+                // Save image data
+                const fileInput = document.getElementById(`file-input-${i}`);
+                if (fileInput && fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        localStorage.setItem(`storyboardImage-${i}`, event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    localStorage.removeItem(`storyboardImage-${i}`); // Remove if no image
+                }
             }
-            alert('Phases saved!');
+            alert('Phases and images saved!');
         }
-    
+        
         // Make saveTheme and savePhase accessible globally
         window.saveTheme = saveTheme;
         window.savePhase = savePhase;
+        
     });
     

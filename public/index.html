@@ -21,7 +21,7 @@
             <div class="storyboard-container">
                 <label for="text-theme-1">What is your storyboard about?</label>
                 <button type="button" onclick="saveTheme()">Save Theme</button>
-                <input type="text" id="text-theme-1" name="text-theme-1" style="width: 700px;">
+                <input type="text" id="text-theme-1" name="text-theme-1" style="width: 700px;" autocomplete="off">
 
                 <div class="storyboard-box" id="box-1">
                     <h3>Phase 1</h3>
@@ -55,14 +55,13 @@
                     <button type="button" class="upload-btn" data-box-id="4">Upload Image</button>
                 </div>
             </div>
-            <button type="button" onclick="savePhase()">Save Phases</button>
+            <button type="button" onclick="savePhase()">Save Phase</button>
         </div>
         <!-- First Half: Includes Generation Functionality -->
         <div class="section" id="half-one">
             <div class="subsection" id="text-section-1">
-                <h2>How can I assist you with ideation?</h2>
+                <h2>How can I help you with ideation?</h2>
                 <form id="text-form-1" autocomplete="off">
-                    <label for="text-prompt-1">Ask any questions about your storyboard creation.</label>
                     <input type="text" id="text-prompt-1" name="text-prompt-1">
                     <button type="submit">Click</button>
                 </form>
@@ -71,7 +70,7 @@
             <div class="subsection" id="image-section-1">
                 <h2>Do you want to visualise your ideas?</h2>
                 <form id="image-form-1" autocomplete="off">
-                    <label for="image-prompt-1">Generate images for each step of the storyboard.</label>
+                    <label for="image-prompt-1">Generate images for your storyboard!</label>
                     <input type="text" id="image-prompt-1" name="image-prompt-1">
                     <button type="submit">Click</button>
                 </form>
