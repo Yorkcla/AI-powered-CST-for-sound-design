@@ -3,7 +3,7 @@
         const nextStepBtn = document.getElementById('next-step-btn');
         if (nextStepBtn) {
             nextStepBtn.addEventListener('click', () => {
-                window.location.href = 'index2.html'; // Replace with the URL of your next HTML file
+                window.location.href = 'index3.html'; // Replace with the URL of your next HTML file
             });
         }
 
