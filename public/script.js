@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
             newBox.classList.add('storyboard-box');
             newBox.innerHTML = `
                 <h3>Phase ${currentBoxCount}</h3>
-                <textarea class="storyboard-text" placeholder="Enter text for Box ${currentBoxCount}"></textarea>
+                <textarea id="text-box-${currentBoxCount}" placeholder="Enter text for Box ${currentBoxCount}"></textarea>
                 <div class="storyboard-image" id="storyboard-image-${currentBoxCount}">No image</div>
                 <input type="file" class="file-input" id="file-input-${currentBoxCount}" accept="image/*">
                 <button type="button" class="upload-btn" data-box-id="${currentBoxCount}">Upload Image</button>
@@ -220,7 +220,18 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('storyboardTheme', theme);
             alert('Theme saved!');
         }
-
-        // Make saveTheme accessible globally
+    
+        function savePhase() {
+            for (let i = 1; i <= 4; i++) {
+                // Use backticks for template literals
+                const phase = document.getElementById(`text-box-${i}`).value;
+                localStorage.setItem(`storyboardPhase-${i}`, phase);
+            }
+            alert('Phases saved!');
+        }
+    
+        // Make saveTheme and savePhase accessible globally
         window.saveTheme = saveTheme;
+        window.savePhase = savePhase;
     });
+    
