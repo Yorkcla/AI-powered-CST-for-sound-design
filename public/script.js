@@ -163,6 +163,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <button type="button" class="upload-btn" data-box-id="${currentBoxCount}">Upload Image</button>
             `;
             document.querySelector('.storyboard-container').appendChild(newBox);
+
+            // Save the updated number of boxes
+            localStorage.setItem('currentBoxCount', currentBoxCount);
         }
         if (currentBoxCount >= 8) {
             addBoxBtn.disabled = true; // Disable button if maximum reached
@@ -213,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    //saving the theme 
+    //saving theme, phase,
     document.addEventListener('DOMContentLoaded', function() {
         function saveTheme() {
             const theme = document.getElementById('text-theme-1').value;
@@ -222,10 +225,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     
         function savePhase() {
-            for (let i = 1; i <= 4; i++) {
-                // Use backticks for template literals
-                const phase = document.getElementById(`text-box-${i}`).value;
-                localStorage.setItem(`storyboardPhase-${i}`, phase);
+            // Use currentBoxCount directly
+            const currentBoxCount = parseInt(localStorage.getItem('currentBoxCount') || '4', 10);
+    
+            for (let i = 1; i <= currentBoxCount; i++) {
+                const textBox = document.getElementById(`text-box-${i}`);
+                if (textBox) {
+                    const phase = textBox.value;
+                    localStorage.setItem(`storyboardPhase-${i}`, phase);
+                }
             }
             alert('Phases saved!');
         }
