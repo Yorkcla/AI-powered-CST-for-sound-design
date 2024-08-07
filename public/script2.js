@@ -117,12 +117,25 @@
         });
     });
 
-    //loading the theme
-    window.onload = function() {
+    //loading thems and phases
+    document.addEventListener('DOMContentLoaded', function() {
         const theme = localStorage.getItem('storyboardTheme');
         if (theme) {
             document.getElementById('text-theme-1').value = theme;
         } else {
             alert('No storyboard theme found');
         }
-    };
+
+        function loadPhase() {
+            for (let i = 1; i <= 4; i++) {
+                const phase = localStorage.getItem(`storyboardPhase-${i}`);
+                if (phase) {
+                    document.getElementById(`text-box-${i}`).value = phase;
+                } else {
+                    document.getElementById(`text-box-${i}`).value = 'No data found for this phase';
+                }
+            }
+        }
+
+        loadPhase();
+    });
