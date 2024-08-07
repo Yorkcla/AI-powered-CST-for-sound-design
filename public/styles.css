@@ -90,38 +90,6 @@ html, body {
   object-fit: contain; /* Maintain aspect ratio without cropping */
 }
 
-/* Button styles for "Next Step" */
-.next-step-btn {
-  position: fixed;
-  top: 2vh; /* Adjust as needed */
-  right: 52vw; /* Adjust as needed */
-  padding: 5px 5px;
-  font-size: 12px;
-  background-color: #adaddb;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  z-index: 10; /* Ensure button is above other content */
-}
-
-.next-step-btn:hover {
-  background-color: #00796b;
-}
-
-/* Positioning for Next Step button */
-#next-step-btn {
-  top: 1vh; /* Adjust as needed */
-  right: 51vw; /* Adjust as needed */
-}
-
-/* Positioning for Previous Step button */
-#previous-step-btn {
-  top: 1vh; /* Same vertical alignment as Next Step */
-  right: 56vw; /* Adjust as needed to place to the left of Next Step */
-}
-
-
 /* Form styling */
 textarea, input {
   width: 100%; /* Full width of the container */
@@ -144,6 +112,20 @@ button {
 
 button:hover {
   background-color: #00796b;
+}
+
+/* Positioning for Next Step button */
+#next-step-btn {
+  position: fixed;
+  top: 10px; /* Align with other buttons */
+  right: 970px; /* Fixed distance from the right edge */
+}
+
+/* Positioning for Previous Step button */
+#previous-step-btn {
+  position: fixed;
+  top: 10px; /* Same vertical alignment as Next Step */
+  right: 1050px; /* Adjust to place to the left of Next Step */
 }
 
 /* Chat history styling */
