@@ -278,3 +278,56 @@ button:hover {
 .upload-btn:hover {
   background-color: #00796b;
 }
+
+/* General styling for the form */
+#dropdown-form {
+  max-width: 300px; /* Adjust width as needed */
+  margin: 0 auto; /* Center the form horizontally */
+  padding: 10px; /* Add padding around the form */
+  background-color: #f9f9f9; /* Background color for the form */
+}
+
+/* Styling for the main dropdown */
+#variable-dropdown {
+  width: 100%; /* Full width of the container */
+  padding: 5px; /* Match padding with the button */
+  font-size: 12px; /* Match font size with the button */
+  margin-bottom: 15px; /* Space between the main dropdown and dynamic dropdowns */
+  border: 1px solid #ccc; /* Border for dropdown */
+  border-radius: 5px; /* Match border radius with the button */
+}
+
+/* Styling for dynamically created dropdowns container */
+#dynamic-dropdown-container {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack dropdowns vertically */
+  gap: 10px; /* Space between each dropdown */
+}
+
+/* Styling for each dynamic dropdown */
+#dynamic-dropdown-container select {
+  width: 100%; /* Full width of the container */
+  padding: 5px; /* Match padding with the button */
+  font-size: 12px; /* Match font size with the button */
+  border: 1px solid #ccc; /* Border for dropdowns */
+  border-radius: 5px; /* Match border radius with the button */
+}
+
+/* Styling for the submit button */
+#dropdown-form button {
+  padding: 5px 5px; /* Match existing button style */
+  font-size: 12px; /* Match existing button font size */
+  background-color: #adaddb; /* Match existing button background color */
+  color: white; /* Match existing button text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Match existing button border radius */
+  cursor: pointer; /* Change cursor to pointer */
+  z-index: 10; /* Ensure button is above other content */
+  display: inline-block; /* Inline-block display */
+  margin-top: 10px;
+}
+
+/* Hover effect for the button */
+#dropdown-form button:hover {
+  background-color: #00796b; /* Match existing hover background color */
+}

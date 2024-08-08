@@ -30,7 +30,7 @@ app.post('/generate-text', async (req, res) => {
         const response = await openai.createChatCompletion({
             model: 'gpt-4o-mini',
             messages: [{ role: 'user', content: prompt }],
-            max_tokens: 150,
+            max_tokens: 500,
         });
 
         res.json(response.data);
