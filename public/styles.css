@@ -249,16 +249,11 @@ button:hover {
 
 /* Checkbox */
 
-.phase-checkbox {
-  position: absolute;
-  top: 3%; /* Adjust based on your design needs */
-  right: 20%; /* Adjust to position the checkbox in the desired location */
-  transform: scale(1.2); /* Make checkbox larger if needed */
+.checkbox {
+  cursor: pointer;
 }
-
-/* Hide the label visually but keep it accessible */
-.checkbox-label {
-  display: none;
+.storyboard-box.completed {
+  background-color: #adaddb; /* Change this to the desired color */
 }
 
 .video {

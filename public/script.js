@@ -56,42 +56,42 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.href = 'index2.html'; // Replace with the URL of your next HTML file
         });
     }
-
+    
     // Text form for the first half
-    document.getElementById('text-form-1').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const prompt = document.getElementById('text-prompt-1').value;
-
-        try {
-            const response = await fetch('http://localhost:3001/generate-text', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ prompt })
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            console.log('Text generation response:', data);
-
+        document.getElementById('text-form-1').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const prompt = document.getElementById('text-prompt-1').value;
+    
+            try {
+                const response = await fetch('http://localhost:3001/generate-text', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ prompt })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const data = await response.json();
+                console.log('Text generation response:', data);
+    
             const resultSentence = data.choices[0].message.content;
-
+    
             // Append the user and chatbot messages to the chat history
-            appendMessage('user', prompt);
-            appendMessage('chatbot', resultSentence);
-
-            // Clear the prompt input field
-            document.getElementById('text-prompt-1').value = '';
-        } catch (error) {
-            console.error('Error:', error);
-            appendMessage('chatbot', 'Error: ' + error.message);
-        }
-    });
-
+                appendMessage('user', prompt);
+                appendMessage('chatbot', resultSentence);
+    
+                // Clear the prompt input field
+                document.getElementById('text-prompt-1').value = '';
+            } catch (error) {
+                console.error('Error:', error);
+                appendMessage('chatbot', 'Error: ' + error.message);
+            }
+        });
+    
     // Image form for the first half
     document.getElementById('image-form-1').addEventListener('submit', async (event) => {
         event.preventDefault();
