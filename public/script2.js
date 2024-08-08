@@ -94,11 +94,13 @@
             // Clear existing boxes if needed
             const container = document.querySelector('.storyboard-container');
             container.innerHTML = ''; // Clear old boxes
-    
+        
             for (let i = 1; i <= currentBoxCount; i++) {
                 const phase = localStorage.getItem(`storyboardPhase-${i}`) || '';
                 const imageData = localStorage.getItem(`storyboardImage-${i}`); // Retrieve image data
-    
+                const isChecked = localStorage.getItem(`storyboardCheckbox-${i}`) === 'true'; // Retrieve checkbox state
+                const inputValue = localStorage.getItem(`storyboardInput-${i}`) || ''; // Retrieve input value
+        
                 const newBox = document.createElement('div');
                 newBox.classList.add('storyboard-box');
                 newBox.innerHTML = `
@@ -107,11 +109,57 @@
                     <div class="storyboard-image" id="storyboard-image-${i}">
                         ${imageData ? `<img src="${imageData}" alt="Phase ${i} Image" style="max-width: 100%; height: auto;">` : 'No image'}
                     </div>
+                    <label>
+                        <input type="checkbox" class="checkbox" id="checkbox-${i}" ${isChecked ? 'checked' : ''}>
+                    </label>
+                    ${isChecked ? `<input type="text" id="input-${i}" value="${inputValue}">` : ''}
                 `;
                 container.appendChild(newBox);
+        
+                // Add event listener to handle checkbox changes
+                const checkbox = document.getElementById(`checkbox-${i}`);
+                if (checkbox) {
+                    checkbox.addEventListener('change', (event) => {
+                        const isChecked = event.target.checked;
+                        localStorage.setItem(`storyboardCheckbox-${i}`, isChecked);
+        
+                        // Toggle text input visibility
+                        const inputFieldId = `input-${i}`;
+                        let inputField = document.getElementById(inputFieldId);
+                        if (isChecked) {
+                            if (!inputField) {
+                                inputField = document.createElement('input');
+                                inputField.type = 'text';
+                                inputField.id = inputFieldId;
+                                inputField.placeholder = 'Assign the chord';
+                                checkbox.parentElement.appendChild(inputField);
+                            }
+                            inputField.style.display = 'inline-block'; // Show input field
+                        } else {
+                            if (inputField) {
+                                inputField.style.display = 'none'; // Hide input field
+                            }
+                        }
+
+                        // Toggle completed class
+                        if (isChecked) {
+                            newBox.classList.add('completed');
+                        } else {
+                            newBox.classList.remove('completed');
+                        }
+                    });
+                }
+        
+                // Add event listener to handle input field changes
+                const inputField = document.getElementById(`input-${i}`);
+                if (inputField) {
+                    inputField.addEventListener('input', (event) => {
+                        localStorage.setItem(`storyboardInput-${i}`, event.target.value);
+                    });
+                }
             }
         }
-    
+        
         loadPhases();
     });
     

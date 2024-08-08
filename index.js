@@ -32,7 +32,7 @@ app.post('/generate-text', async (req, res) => {
             messages: [{ role: 'user', content: prompt }],
             max_tokens: 150,
         });
-        
+
         res.json(response.data);
     } catch (error) {
         res.status(500).send(error.message);
