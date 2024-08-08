@@ -30,8 +30,24 @@
         <div class="section" id="half-one">
             <div class="subsection" id="text-section-1">
                 <h2>How can I help you with creating chord progressions?</h2>
+                <!-- Dropdown form with its own submit button -->
+                <form id="dropdown-form">
+                    <select id="variable-dropdown">
+                        <option value="1">1 phase</option>
+                        <option value="2">2 phases</option>
+                        <option value="3">3 phases</option>
+                        <option value="4">4 phases</option>
+                        <option value="5">5 phases</option>
+                        <option value="6">6 phases</option>
+                        <option value="7">7 phases</option>
+                        <option value="8">8 phases</option>
+                    </select>
+                    <div id="dynamic-dropdown-container">
+                    </div>
+                    <button type="submit">Complete</button>
+                </form>
                 <form id="text-form-1" autocomplete="off">
-                    <input type="text" id="text-prompt-1" name="text-prompt-1">
+                    <input type="text" id="text-prompt-1" name="text-prompt-1" placeholder="Ask through the dropdowns first and you can type for further questions if you like!" style="margin-top: 20px;">
                     <button type="submit">Click</button>
                 </form>
                 <div id="text-result-1"></div>

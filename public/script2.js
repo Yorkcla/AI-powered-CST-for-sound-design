@@ -25,11 +25,27 @@
         }
     });
 
-    // Text form for the first half
-    document.getElementById('text-form-1').addEventListener('submit', async (event) => {
+    document.getElementById('dropdown-form').addEventListener('submit', async (event) => {
         event.preventDefault();
-        const prompt = document.getElementById('text-prompt-1').value;
-
+        
+        const dropdownValue = document.getElementById('variable-dropdown').value;
+        let selectedValues = [];
+    
+        // Collect selected values from dynamically generated dropdowns
+        for (let i = 0; i < dropdownValue; i++) {
+            const dropdown = document.getElementById(`dynamic-dropdown-${i+1}`);
+            if (dropdown) { // Check if dropdown exists
+                const selectedValue = dropdown.options[dropdown.selectedIndex].value;
+                selectedValues.push(selectedValue);
+            }
+        }
+    
+        // Create a comma-separated string of selected values
+        const selectedValuesString = selectedValues.join(', ');
+    
+        // Construct the prompt with the selected values
+        const prompt = `Could you provide 2 chord progression options in 5 different keys for ${dropdownValue} measures, following the tonal functions in  the order specified by: ${selectedValuesString}, Please suggest only the progression options.`;
+    
         try {
             const response = await fetch('http://localhost:3001/generate-text', {
                 method: 'POST',
@@ -38,27 +54,91 @@
                 },
                 body: JSON.stringify({ prompt })
             });
-
+    
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-
+    
             const data = await response.json();
-            console.log('Text generation response:', data);
-
+            console.log('Dropdown-based text generation response:', data);
+    
             const resultSentence = data.choices[0].message.content;
-
+    
             // Append the user and chatbot messages to the chat history
             appendMessage('user', prompt);
             appendMessage('chatbot', resultSentence);
-
-            // Clear the prompt input field
-            document.getElementById('text-prompt-1').value = '';
+    
         } catch (error) {
             console.error('Error:', error);
             appendMessage('chatbot', 'Error: ' + error.message);
         }
     });
+    
+    
+    
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('variable-dropdown').addEventListener('change', (event) => {
+        const dropdownValue = event.target.value;  // Get the selected value from the dropdown
+        const container = document.getElementById('dynamic-dropdown-container');  // Reference the container for the new dropdowns
+    
+        // Clear any existing dropdowns in the container
+        container.innerHTML = '';
+    
+        // Create the number of dropdowns based on the dropdownValue
+        for (let i = 0; i < dropdownValue; i++) {
+            const newDropdown = document.createElement('select');
+            newDropdown.id = `dynamic-dropdown-${i+1}`;  // Unique ID for each dropdown
+    
+            // Populate each dropdown with options
+            newDropdown.innerHTML = `
+                <option value="tonic">Start</option>
+                <option value="subdominant">Rising</option>
+                <option value="dominant">Peak</option>
+                <option value="submediant">Semi-End</option>
+                <option value="tonic">End</option>
+            `;
+    
+            // Append the new dropdown to the container
+            container.appendChild(newDropdown);
+        }
+    });    
+});
+
+// Text form for the first half
+document.getElementById('text-form-1').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const prompt = document.getElementById('text-prompt-1').value;
+
+    try {
+        const response = await fetch('http://localhost:3001/generate-text', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log('Text generation response:', data);
+
+        const resultSentence = data.choices[0].message.content;
+
+        // Append the user and chatbot messages to the chat history
+        appendMessage('user', prompt);
+        appendMessage('chatbot', resultSentence);
+
+        // Clear the prompt input field
+        document.getElementById('text-prompt-1').value = '';
+    } catch (error) {
+        console.error('Error:', error);
+        appendMessage('chatbot', 'Error: ' + error.message);
+    }
+});
 
     // Function to create and append a new message element
     function appendMessage(role, content) {
@@ -206,6 +286,7 @@
                         localStorage.removeItem(`storyboardImage-${i}`);
                     }
                 }
+                alert('Phases saved!');
             }
             
             // Make savePhase accessible globally
