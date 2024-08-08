@@ -3,16 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const previousStepBtn = document.getElementById('previous-step-btn');
     if (previousStepBtn) {
         previousStepBtn.addEventListener('click', () => {
-            // Show a confirmation dialog
-            const userConfirmed = confirm('Are you sure you want to clear your data and go back?');
-
-            if (userConfirmed) {
-                // Clear all data from localStorage
-                localStorage.clear();
 
                 // Navigate to the previous page
                 window.location.href = 'index2.html'; // Replace with the URL of your previous HTML file
-            }
             // If the user cancels, do nothing and stay on the current page
         });
     }
