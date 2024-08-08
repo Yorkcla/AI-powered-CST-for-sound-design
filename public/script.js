@@ -161,11 +161,12 @@ document.addEventListener('DOMContentLoaded', function () {
     updateProgressBar(30);
 
     document.addEventListener('DOMContentLoaded', (event) => {
+        // Create the "Add Storyboard Box" button
         const addBoxBtn = document.createElement('button');
         addBoxBtn.textContent = 'Add Storyboard Box';
         addBoxBtn.style.marginBottom = '20px';
         document.getElementById('half-two').insertBefore(addBoxBtn, document.querySelector('.storyboard-container'));
-    
+
         let currentBoxCount = 4;
     
         addBoxBtn.addEventListener('click', () => {

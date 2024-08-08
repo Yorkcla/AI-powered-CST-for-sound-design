@@ -108,24 +108,38 @@ button {
   border-radius: 5px;
   cursor: pointer;
   z-index: 10; /* Ensure button is above other content */
+  display: inline-block;
 }
 
 button:hover {
   background-color: #00796b;
 }
 
+.button-container {
+  display: 0 1 auto;
+  gap: 10px; /* Adjust spacing as needed */
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
 /* Positioning for Next Step button */
 #next-step-btn {
-  position: fixed;
-  top: 10px; /* Align with other buttons */
-  right: 970px; /* Fixed distance from the right edge */
+  background-color: #666666;
+}
+
+#next-step-btn:hover {
+  background-color: #333333; /* Darker background color on hover */
+  color: #ffffff; /* Ensure text color is readable */
 }
 
 /* Positioning for Previous Step button */
 #previous-step-btn {
-  position: fixed;
-  top: 10px; /* Same vertical alignment as Next Step */
-  right: 1050px; /* Adjust to place to the left of Next Step */
+  background-color: #666666;
+}
+
+#previous-step-btn:hover {
+  background-color: #333333; /* Darker background color on hover */
+  color: #ffffff; /* Ensure text color is readable */
 }
 
 /* Chat history styling */
