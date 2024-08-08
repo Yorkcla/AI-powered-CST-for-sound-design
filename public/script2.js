@@ -163,5 +163,53 @@
         loadPhases();
     });
     
-    
+        //saving theme, phase,
+        document.addEventListener('DOMContentLoaded', function() {        
+            function savePhase() {
+                // Use currentBoxCount directly
+                const currentBoxCount = parseInt(localStorage.getItem('currentBoxCount') || '4', 10);
+            
+                for (let i = 1; i <= currentBoxCount; i++) {
+                    // Get the checkbox element
+                    const checkbox = document.getElementById(`checkbox-${i}`);
+                    if (checkbox && checkbox.checked) {
+                        // Save text data
+                        const textBox = document.getElementById(`text-box-${i}`);
+                        if (textBox) {
+                            const phase = textBox.value;
+                            localStorage.setItem(`storyboardPhase-${i}`, phase);
+                        }
+            
+                        // Save input data if the checkbox is checked
+                        const inputField = document.getElementById(`input-${i}`);
+                        if (inputField) {
+                            const inputValue = inputField.value;
+                            localStorage.setItem(`storyboardInput-${i}`, inputValue);
+                        } else {
+                            localStorage.removeItem(`storyboardInput-${i}`); // Remove if no input
+                        }
+            
+                        // Save image data
+                        const fileInput = document.getElementById(`file-input-${i}`);
+                        if (fileInput && fileInput.files.length > 0) {
+                            const file = fileInput.files[0];
+                            const reader = new FileReader();
+                            reader.onload = function(event) {
+                                localStorage.setItem(`storyboardImage-${i}`, event.target.result);
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    } else {
+                        // If checkbox is not checked, remove saved data
+                        localStorage.removeItem(`storyboardPhase-${i}`);
+                        localStorage.removeItem(`storyboardInput-${i}`);
+                        localStorage.removeItem(`storyboardImage-${i}`);
+                    }
+                }
+            }
+            
+            // Make savePhase accessible globally
+            window.savePhase = savePhase;
+            
+        });
     
