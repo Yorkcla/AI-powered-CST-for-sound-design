@@ -6,12 +6,21 @@
                 window.location.href = 'index3.html'; // Replace with the URL of your next HTML file
             });
         }
-
         // Previous Step Button
         const previousStepBtn = document.getElementById('previous-step-btn');
         if (previousStepBtn) {
             previousStepBtn.addEventListener('click', () => {
-                window.location.href = 'index.html'; // Replace with the URL of your previous HTML file
+                // Show a confirmation dialog
+                const userConfirmed = confirm('Are you sure you want to clear your data and go back?');
+
+                if (userConfirmed) {
+                    // Clear all data from localStorage
+                    localStorage.clear();
+
+                    // Navigate to the previous page
+                    window.location.href = 'index.html'; // Replace with the URL of your previous HTML file
+                }
+                // If the user cancels, do nothing and stay on the current page
             });
         }
     });
@@ -66,7 +75,7 @@
         progressBar.style.width = `${percentage}%`;
     }
     
-    // Example: Update the progress bar to 50%
+    // Example: Update the progress bar to 60%
     updateProgressBar(60);
 
     document.addEventListener('DOMContentLoaded', function() {
