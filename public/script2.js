@@ -44,7 +44,7 @@
         const selectedValuesString = selectedValues.join(', ');
     
         // Construct the prompt with the selected values
-        const prompt = `Could you provide 2 chord progression options in 5 different keys for ${dropdownValue} measures, following the tonal functions in  the order specified by: ${selectedValuesString}, Please suggest only the progression options.`;
+        const prompt = `Could you provide 10 chord progression options in C major key for ${dropdownValue} measures, following the tonal functions in  the order specified by: ${selectedValuesString}, Please suggest only the progression options.`;
     
         try {
             const response = await fetch('http://localhost:3001/generate-text', {
@@ -211,7 +211,7 @@ document.getElementById('text-form-1').addEventListener('submit', async (event) 
                                 inputField = document.createElement('input');
                                 inputField.type = 'text';
                                 inputField.id = inputFieldId;
-                                inputField.placeholder = 'Assign the chord';
+                                inputField.placeholder = 'Assign a chord';
                                 checkbox.parentElement.appendChild(inputField);
                             }
                             inputField.style.display = 'inline-block'; // Show input field

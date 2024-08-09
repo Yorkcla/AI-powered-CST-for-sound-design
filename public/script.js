@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let currentBoxCount = 4;
 
     addBoxBtn.addEventListener('click', () => {
-        if (currentBoxCount < 8) {
+        if (currentBoxCount < 6) {
             currentBoxCount++;
             const newBox = document.createElement('div');
             newBox.classList.add('storyboard-box');
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             document.querySelector('.storyboard-container').appendChild(newBox);
             attachUploadEventListener(); // Attach event listeners for the new box
             localStorage.setItem('currentBoxCount', currentBoxCount);
-            if (currentBoxCount >= 8) {
+            if (currentBoxCount >= 6) {
                 addBoxBtn.disabled = true;
             }
         }
@@ -225,13 +225,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     attachUploadEventListener();
 });
     
-//saving theme, phase,
-document.addEventListener('DOMContentLoaded', function() {
-    function saveTheme() {
-        const theme = document.getElementById('text-theme-1').value;
-        localStorage.setItem('storyboardTheme', theme);
-        alert('Theme saved!');
-    }
+    //saving theme, phase,
+    document.addEventListener('DOMContentLoaded', function() {
+        function saveTheme() {
+            const theme = document.getElementById('text-theme-1').value;
+            localStorage.setItem('storyboardTheme', theme);
+            alert('Theme saved!');
+        }
 
     function savePhase() {
         // Use currentBoxCount directly
