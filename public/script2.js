@@ -29,6 +29,8 @@
         event.preventDefault();
         
         const dropdownValue = document.getElementById('variable-dropdown').value;
+        const dropdownValue2 = document.getElementById('variable-dropdown2').value;
+        const dropdownValue3 = document.getElementById('variable-dropdown3').value;
         let selectedValues = [];
     
         // Collect selected values from dynamically generated dropdowns
@@ -44,7 +46,7 @@
         const selectedValuesString = selectedValues.join(', ');
     
         // Construct the prompt with the selected values
-        const prompt = `Could you provide 10 chord progression options in C major key for ${dropdownValue} measures, following the tonal functions in  the order specified by: ${selectedValuesString}, Please suggest only the progression options.`;
+        const prompt = `Could you provide 10 chord progression options in ${dropdownValue2} ${dropdownValue3} key for ${dropdownValue} measures, following the tonal functions in the order specified by: ${selectedValuesString}, Please suggest only the progression options.`;
     
         try {
             const response = await fetch('http://localhost:3001/generate-text', {

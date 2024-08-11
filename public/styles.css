@@ -288,7 +288,7 @@ button:hover {
 }
 
 /* Styling for the main dropdown */
-#variable-dropdown {
+.variable-dropdown {
   width: 100%; /* Full width of the container */
   padding: 5px; /* Match padding with the button */
   font-size: 12px; /* Match font size with the button */
