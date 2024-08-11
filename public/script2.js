@@ -295,4 +295,33 @@ document.getElementById('text-form-1').addEventListener('submit', async (event) 
             window.savePhase = savePhase;
             
         });
+
+    document.getElementById('play-button').addEventListener('click', async () => {
+        const chordInput = document.getElementById('chord-input').value.trim();
+        if (chordInput === '') return;
+        
+        // Initialize the Tone.js synth
+        const synth = new Tone.PolySynth().toDestination();
+        
+        // Split the input into notes
+        const chordNotes = chordInput.split(/\s+/).filter(note => note);
+        
+        if (chordNotes.length === 0) return;
     
+        // Ensure Tone.js is ready
+        await Tone.start();
+    
+        // Play the chord with a release time of 0.2 seconds
+        synth.triggerAttackRelease(chordNotes, 0.2); // Play the chord for 0.2 seconds
+    });
+
+
+
+                
+        
+        
+    
+
+        
+        
+        
