@@ -28,7 +28,7 @@
         </div>
         <!-- First Half: Includes Generation Functionality -->
         <div class="section" id="half-one">
-            <div class="subsection" id="text-section-1">
+            <div class="moresection" id="text-section-1">
                 <h2>How can I help you with creating chord progressions?</h2>
                 <!-- Dropdown form with its own submit button -->
                 <form id="dropdown-form">
@@ -57,21 +57,22 @@
                     </select>
                     <div id="dynamic-dropdown-container">
                     </div>
-                    <button type="submit">Complete</button>
+                    <button type="submit">Ask</button>
                 </form>
                 <form id="text-form-1" autocomplete="off">
                     <input type="text" id="text-prompt-1" name="text-prompt-1" placeholder="Ask through the dropdowns first and you can type for further questions if you like!" style="margin-top: 20px;">
-                    <button type="submit">Click</button>
+                    <button type="submit" style="margin-bottom: 5px;">Ask</button>
                 </form>
                 <div id="text-result-1"></div>
             </div>
-            <div class="subsection" id="image-section-1">
-                <h2>Hear and assign the appropriate chords!</h2>
+            <div class="lesssection" id="image-section-1">
+                <h2>Listen and assign the appropriate chords!</h2>
                 <div class="input-container" style="margin-bottom: 10px;">
                     <label for="chord-input">Chord:</label>
                     <input type="text" id="chord-input" placeholder="Cmaj7" style="width: 100px;">
                     <button id="get-notes-button" style="margin-right:10px;">Get Notes</button>
                     <input type="text" id="notes-output" style="width: 200px;" readonly>
+                    <button id="ask-button" type="submit">Ask</button>
                 </div>  
                 <label for="note1">Enter Notes:</label>
                 <input type="text" id="note1" placeholder="C4" style="width: 50px; margin-right: 5px;">
@@ -88,7 +89,7 @@
                     <option value="end">End</option>
                 </select>
                 <button id="play-arpeggio">Play Style</button>
-                <button id="play-chord">Play Chord</button>    
+                <button id="play-chord">Play Chord</button>
                 <script src="https://cdn.jsdelivr.net/npm/tonal/browser/tonal.min.js"></script>
                 <script src="http://unpkg.com/tone"></script>
             </div>
