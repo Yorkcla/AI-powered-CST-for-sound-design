@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="storyboard-image" id="storyboard-image-${i}">
                         ${imageData ? `<img src="${imageData}" alt="Phase ${i} Image" style="max-width: 100%; height: auto;">` : 'No image'}
                     </div>
-                    <p>${inputValue}</p> <!-- Display input value as text -->
+                    <p style="text-align: center; margin: 0; padding: 10px;">${inputValue}</p>
                 `;
                 container.appendChild(newBox);
             }
@@ -59,7 +59,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     loadPhases();
+
 });
-
-    
-

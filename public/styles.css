@@ -26,6 +26,20 @@ html, body {
   overflow-y: auto; /* Allows scrolling if content overflows */
 }
 
+.moresection {
+  flex: 2.2; /* This subsection will take up 2 parts out of 3 */
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.lesssection {
+  flex: 0.8; /* This subsection will take up 1 part out of 3 */
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
 #text-section-1 {
   background-color: #e0f7fa; /* Light background for text section */
 }

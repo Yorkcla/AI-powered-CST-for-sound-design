@@ -1,80 +1,116 @@
-    document.addEventListener('DOMContentLoaded', function() {
-        // Next Step Button
-        const nextStepBtn = document.getElementById('next-step-btn');
-        if (nextStepBtn) {
-            nextStepBtn.addEventListener('click', () => {
-                window.location.href = 'index3.html'; // Replace with the URL of your next HTML file
-            });
-        }
-        // Previous Step Button
-        const previousStepBtn = document.getElementById('previous-step-btn');
-        if (previousStepBtn) {
-            previousStepBtn.addEventListener('click', () => {
-                // Show a confirmation dialog
-                const userConfirmed = confirm('Are you sure you want to clear your data and go back?');
+document.addEventListener('DOMContentLoaded', function() {
+    // Next Step Button
+    const nextStepBtn = document.getElementById('next-step-btn');
+    if (nextStepBtn) {
+        nextStepBtn.addEventListener('click', () => {
+            window.location.href = 'index3.html'; // Replace with the URL of your next HTML file
+        });
+    }
+    // Previous Step Button
+    const previousStepBtn = document.getElementById('previous-step-btn');
+    if (previousStepBtn) {
+        previousStepBtn.addEventListener('click', () => {
+            // Show a confirmation dialog
+            const userConfirmed = confirm('Are you sure you want to clear your data and go back?');
 
-                if (userConfirmed) {
-                    // Clear all data from localStorage
-                    localStorage.clear();
+            if (userConfirmed) {
+                // Clear all data from localStorage
+                localStorage.clear();
 
-                    // Navigate to the previous page
-                    window.location.href = 'index.html'; // Replace with the URL of your previous HTML file
-                }
-                // If the user cancels, do nothing and stay on the current page
-            });
-        }
-    });
-
-    document.getElementById('dropdown-form').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        
-        const dropdownValue = document.getElementById('variable-dropdown').value;
-        const dropdownValue2 = document.getElementById('variable-dropdown2').value;
-        const dropdownValue3 = document.getElementById('variable-dropdown3').value;
-        let selectedValues = [];
-    
-        // Collect selected values from dynamically generated dropdowns
-        for (let i = 0; i < dropdownValue; i++) {
-            const dropdown = document.getElementById(`dynamic-dropdown-${i+1}`);
-            if (dropdown) { // Check if dropdown exists
-                const selectedValue = dropdown.options[dropdown.selectedIndex].value;
-                selectedValues.push(selectedValue);
+                // Navigate to the previous page
+                window.location.href = 'index.html'; // Replace with the URL of your previous HTML file
             }
+            // If the user cancels, do nothing and stay on the current page
+        });
+    }
+});
+
+document.getElementById('dropdown-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    
+    const dropdownValue = document.getElementById('variable-dropdown').value;
+    const dropdownValue2 = document.getElementById('variable-dropdown2').value;
+    const dropdownValue3 = document.getElementById('variable-dropdown3').value;
+    let selectedValues = [];
+
+    // Collect selected values from dynamically generated dropdowns
+    for (let i = 0; i < dropdownValue; i++) {
+        const dropdown = document.getElementById(`dynamic-dropdown-${i+1}`);
+        if (dropdown) { // Check if dropdown exists
+            const selectedValue = dropdown.options[dropdown.selectedIndex].value;
+            selectedValues.push(selectedValue);
         }
-    
-        // Create a comma-separated string of selected values
-        const selectedValuesString = selectedValues.join(', ');
-    
-        // Construct the prompt with the selected values
-        const prompt = `Could you provide 10 chord progression options in ${dropdownValue2} ${dropdownValue3} key for ${dropdownValue} measures, following the tonal functions in the order specified by: ${selectedValuesString}, Please suggest only the progression options.`;
-    
-        try {
-            const response = await fetch('http://localhost:3001/generate-text', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ prompt })
-            });
-    
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-    
-            const data = await response.json();
-            console.log('Dropdown-based text generation response:', data);
-    
-            const resultSentence = data.choices[0].message.content;
-    
-            // Append the user and chatbot messages to the chat history
-            appendMessage('user', prompt);
-            appendMessage('chatbot', resultSentence);
-    
-        } catch (error) {
-            console.error('Error:', error);
-            appendMessage('chatbot', 'Error: ' + error.message);
+    }
+
+    // Create a comma-separated string of selected values
+    const selectedValuesString = selectedValues.join(', ');
+
+    // Construct the prompt with the selected values
+    const prompt = `Provide 5 chord progression options in ${dropdownValue2} ${dropdownValue3} key for ${dropdownValue} measures, following the tonal functions in the order specified by: ${selectedValuesString}, Please suggest only the progression options.`;
+
+    try {
+        const response = await fetch('http://localhost:3001/generate-text', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-    });
+
+        const data = await response.json();
+        console.log('Dropdown-based text generation response:', data);
+
+        const resultSentence = data.choices[0].message.content;
+
+        // Append the user and chatbot messages to the chat history
+        appendMessage('user', prompt);
+        appendMessage('chatbot', resultSentence);
+
+    } catch (error) {
+        console.error('Error:', error);
+        appendMessage('chatbot', 'Error: ' + error.message);
+    }
+});
+
+document.getElementById('ask-button').addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    const inputValue = document.getElementById('notes-output').value;
+
+    // Construct the prompt using the input value
+    const prompt = `Provide 5 harmonic note arrangement options based on ${inputValue} with octave numbers? Please suggest only the arrangement options.`;
+
+    try {
+        const response = await fetch('http://localhost:3001/generate-text', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log('Text generation response:', data);
+
+        const resultSentence = data.choices[0].message.content;
+
+        // Append the user and chatbot messages to the chat history
+        appendMessage('user', prompt);
+        appendMessage('chatbot', resultSentence);
+
+    } catch (error) {
+        console.error('Error:', error);
+        appendMessage('chatbot', 'Error: ' + error.message);
+    }
+});
     
     
     
