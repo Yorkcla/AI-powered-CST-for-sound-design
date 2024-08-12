@@ -67,11 +67,30 @@
             </div>
             <div class="subsection" id="image-section-1">
                 <h2>Hear and assign the appropriate chords!</h2>
+                <div class="input-container" style="margin-bottom: 10px;">
+                    <label for="chord-input">Chord:</label>
+                    <input type="text" id="chord-input" placeholder="Cmaj7" style="width: 100px;">
+                    <button id="get-notes-button" style="margin-right:10px;">Get Notes</button>
+                    <input type="text" id="notes-output" style="width: 200px;" readonly>
+                </div>  
+                <label for="note1">Enter Notes:</label>
+                <input type="text" id="note1" placeholder="C4" style="width: 50px; margin-right: 5px;">
+                <input type="text" id="note2" placeholder="E4" style="width: 50px; margin-right: 5px;">
+                <input type="text" id="note3" placeholder="A4" style="width: 50px; margin-right: 5px;">
+                <input type="text" id="note4" placeholder="G4" style="width: 50px; margin-right: 10px;">
+
+                <label for="style-select">Example Styles:</label>
+                <select id="style-select" style="margin-right: 10px;">
+                    <option value="start">Start</option>
+                    <option value="rising">Rising</option>
+                    <option value="peak">Peak</option>
+                    <option value="semiend">Semi-end</option>
+                    <option value="end">End</option>
+                </select>
+                <button id="play-arpeggio">Play Style</button>
+                <button id="play-chord">Play Chord</button>    
                 <script src="https://cdn.jsdelivr.net/npm/tonal/browser/tonal.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-                <script>
-                    console.log(Tonal.Key.minorKey("A"));
-                </script>
+                <script src="http://unpkg.com/tone"></script>
             </div>
         </div>
     </div>
