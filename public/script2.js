@@ -296,29 +296,83 @@ document.getElementById('text-form-1').addEventListener('submit', async (event) 
             
         });
 
-    document.getElementById('play-button').addEventListener('click', async () => {
-        const chordInput = document.getElementById('chord-input').value.trim();
-        if (chordInput === '') return;
-        
-        // Initialize the Tone.js synth
-        const synth = new Tone.PolySynth().toDestination();
-        
-        // Split the input into notes
-        const chordNotes = chordInput.split(/\s+/).filter(note => note);
-        
-        if (chordNotes.length === 0) return;
-    
-        // Ensure Tone.js is ready
-        await Tone.start();
-    
-        // Play the chord with a release time of 0.2 seconds
-        synth.triggerAttackRelease(chordNotes, 0.2); // Play the chord for 0.2 seconds
-    });
+        document.getElementById('play-arpeggio').addEventListener('click', async () => {
+            // Get values from the four note inputs
+            const note1 = document.getElementById('note1').value.trim();
+            const note2 = document.getElementById('note2').value.trim();
+            const note3 = document.getElementById('note3').value.trim();
+            const note4 = document.getElementById('note4').value.trim();
 
+            // Combine the notes into an array and filter out any empty strings
+            const chordNotes = [note1, note2, note3, note4].filter(note => note);
 
+            // If all fields are empty, do nothing
+            if (chordNotes.length === 0) return;
+            
+            // Get the selected pattern from the dropdown
+            const pattern = document.getElementById('style-select').value;
 
+            // Define rhythm patterns based on the selected pattern
+            const rhythmPatterns = {
+                start: [0.5, 0.1, 0.1, 0.1],    // Short, medium, long
+                rising: [0.1, 0.2, 0.3, 0.7], // Gradual increase
+                peak: [0.7, 0.7, 0.7, 0.7],      // Medium, long, very long
+                semiend: [0.1, 0.1, 0.1, 0.3], // Medium to long
+                end: [0.1, 0.1, 0.1, 0.5]       // Long to very long
+            };
+
+            const rhythmPattern = rhythmPatterns[pattern] || [0.2, 0.4, 0.6]; // Default to 'start'
+
+            // Initialize the Tone.js synth
+            const synth = new Tone.PolySynth().toDestination();
+            
+            // Ensure Tone.js is ready
+            await Tone.start();
+            
+            // Schedule each note with a different rhythm
+            chordNotes.forEach((note, index) => {
+                // Use the index to select the rhythm duration from the pattern
+                const duration = rhythmPattern[index % rhythmPattern.length];
                 
+                // Play the note with the specified duration and a small delay between each
+                synth.triggerAttackRelease(note, duration, Tone.now() + index * 0.3);
+            });
+        });
+
+        document.getElementById('play-chord').addEventListener('click', async () => {
+            // Get values from the three note inputs
+            const note1 = document.getElementById('note1').value.trim();
+            const note2 = document.getElementById('note2').value.trim();
+            const note3 = document.getElementById('note3').value.trim();
+            const note4 = document.getElementById('note4').value.trim();
         
+            // Combine the notes into an array and filter out any empty strings
+            const chordNotes = [note1, note2, note3, note4].filter(note => note);
+        
+            // If all fields are empty, do nothing
+            if (chordNotes.length === 0) return;
+            
+            // Initialize the Tone.js synth
+            const synth = new Tone.PolySynth().toDestination();
+            
+            // Ensure Tone.js is ready
+            await Tone.start();
+            
+            // Play the chord with a release time of 0.2 seconds
+            synth.triggerAttackRelease(chordNotes, 0.2);
+        });
+                
+        document.getElementById('get-notes-button').addEventListener('click', () => {
+            // Get the chord input value
+            const chordInput = document.getElementById('chord-input').value.trim();
+            
+            // Get the notes from the chord using Tonal.js
+            const chord = Tonal.Chord.get(chordInput);
+            const chordNotes = chord.notes || []; // If chord is invalid, notes will be an empty array
+            
+            // Display the notes in the output field
+            document.getElementById('notes-output').value = chordNotes.join(' ');
+        });
         
     
 
