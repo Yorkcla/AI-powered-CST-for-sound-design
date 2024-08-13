@@ -82,7 +82,7 @@ document.getElementById('ask-button').addEventListener('click', async (event) =>
     const inputValue = document.getElementById('notes-output').value;
 
     // Construct the prompt using the input value
-    const prompt = `Provide 5 harmonic note arrangement options based on ${inputValue} with octave numbers? Please suggest only the arrangement options.`;
+    const prompt = `Provide 5 harmonic note arrangement options for 4 voices based on ${inputValue} with octave numbers including inversions? Please suggest only the arrangement options.`;
 
     try {
         const response = await fetch('http://localhost:3001/generate-text', {
