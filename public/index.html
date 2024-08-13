@@ -60,15 +60,26 @@
         </div>
         <!-- First Half: Includes Generation Functionality -->
         <div class="section" id="half-one">
-            <div class="subsection" id="text-section-1">
+            <div class="moresection" id="text-section-1">
                 <h2>How can I help you with storyboard creation?</h2>
-                <form id="text-form-1" autocomplete="off">
-                    <input type="text" id="text-prompt-1" name="text-prompt-1">
-                    <button type="submit">Ask for Ideation</button>
+                <form id="dropdown-form">
+                    <select class="variable-dropdown" id="variable-dropdown">
+                        <option value="1">1 phase</option>
+                        <option value="2">2 phases</option>
+                        <option value="3">3 phases</option>
+                        <option value="4">4 phases</option>
+                        <option value="5">5 phases</option>
+                        <option value="6">6 phases</option>
+                    </select>
+                    <button type="submit" style="margin-bottom: 5px;">Ask for Ideation</button>
+                </form>
+                <form id="text-form-1" autocomplete="off" style="margin-top: 20px;">
+                    <input type="text" id="text-prompt-1" name="text-prompt-1" placeholder="Ask through the dropdown first and you can type for further questions if you like!">
+                    <button type="submit">Ask Further</button>
                 </form>
                 <div id="text-result-1"></div>
             </div>
-            <div class="subsection" id="image-section-1">
+            <div class="lesssection" id="image-section-1">
                 <h2>Do you want to visualise your ideas?</h2>
                 <form id="image-form-1" autocomplete="off">
                     <input type="text" id="image-prompt-1" name="image-prompt-1">

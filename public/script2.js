@@ -46,7 +46,7 @@ document.getElementById('dropdown-form').addEventListener('submit', async (event
     const selectedValuesString = selectedValues.join(', ');
 
     // Construct the prompt with the selected values
-    const prompt = `Provide 5 chord progression options in ${dropdownValue2} ${dropdownValue3} key for ${dropdownValue} measures, following the tonal functions in the order specified by: ${selectedValuesString}, Please suggest only the progression options.`;
+    const prompt = `Provide 5 chord progression options in ${dropdownValue2} ${dropdownValue3} key for ${dropdownValue} measures, following the tonal functions in the order specified by: ${selectedValuesString}. Please simply suggest the options.`;
 
     try {
         const response = await fetch('http://localhost:3001/generate-text', {
@@ -82,7 +82,7 @@ document.getElementById('ask-button').addEventListener('click', async (event) =>
     const inputValue = document.getElementById('notes-output').value;
 
     // Construct the prompt using the input value
-    const prompt = `Provide 5 harmonic note arrangement options for 4 voices based on ${inputValue} with octave numbers including inversions? Please suggest only the arrangement options.`;
+    const prompt = `Provide 5 harmonic note arrangement options (including inversions) for 4 voices based on ${inputValue} with suitable octave numbers. Please simply suggest the options.`;
 
     try {
         const response = await fetch('http://localhost:3001/generate-text', {
