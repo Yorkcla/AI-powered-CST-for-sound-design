@@ -266,4 +266,40 @@ document.addEventListener('DOMContentLoaded', (event) => {
     window.savePhase = savePhase;
     
 });
+
+document.getElementById('dropdown-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
     
+    const dropdownValue = document.getElementById('variable-dropdown').value;
+    const themeValue = document.getElementById('text-theme-1').value;
+
+    // Construct the prompt with the selected values
+    const prompt = `Provide a storyboard about ${themeValue} consisting of ${dropdownValue} phases, carefully aligned with task analysis and considering the user's cognitive flow. Please simply suggest the phases.`;
+
+    try {
+        const response = await fetch('http://localhost:3001/generate-text', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log('Dropdown-based text generation response:', data);
+
+        const resultSentence = data.choices[0].message.content;
+
+        // Append the user and chatbot messages to the chat history
+        appendMessage('user', prompt);
+        appendMessage('chatbot', resultSentence);
+
+    } catch (error) {
+        console.error('Error:', error);
+        appendMessage('chatbot', 'Error: ' + error.message);
+    }
+});
