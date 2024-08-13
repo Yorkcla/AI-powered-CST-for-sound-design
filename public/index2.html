@@ -15,7 +15,7 @@
     <div class="container">
         <!-- Second Half: No Generation Functionality -->
         <div class="section" id="half-two">
-            <h2>Assign Sounds to Phases!</h2>
+            <h2>Assign Sounds to Phases</h2>
             <div class="button-container">
                 <button type="button" onclick="savePhase()">Save Phase</button>
                 <button id="previous-step-btn">Previous Step</button>
@@ -57,22 +57,22 @@
                     </select>
                     <div id="dynamic-dropdown-container">
                     </div>
-                    <button type="submit">Ask</button>
+                    <button type="submit">Ask for Chord Progression</button>
                 </form>
                 <form id="text-form-1" autocomplete="off">
                     <input type="text" id="text-prompt-1" name="text-prompt-1" placeholder="Ask through the dropdowns first and you can type for further questions if you like!" style="margin-top: 20px;">
-                    <button type="submit" style="margin-bottom: 5px;">Ask</button>
+                    <button type="submit" style="margin-bottom: 5px;">Ask Further</button>
                 </form>
                 <div id="text-result-1"></div>
             </div>
             <div class="lesssection" id="image-section-1">
-                <h2>Listen and assign the appropriate chords!</h2>
+                <h2>Do you want to listen to chords?</h2>
                 <div class="input-container" style="margin-bottom: 10px;">
                     <label for="chord-input">Chord:</label>
                     <input type="text" id="chord-input" placeholder="Cmaj7" style="width: 100px;">
                     <button id="get-notes-button" style="margin-right:10px;">Get Notes</button>
                     <input type="text" id="notes-output" style="width: 200px;" readonly>
-                    <button id="ask-button" type="submit">Ask</button>
+                    <button id="ask-button" type="submit">Ask for Note Arrangement</button>
                 </div>  
                 <label for="note1">Enter Notes:</label>
                 <input type="text" id="note1" placeholder="C4" style="width: 50px; margin-right: 5px;">
