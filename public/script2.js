@@ -281,134 +281,134 @@ document.addEventListener('DOMContentLoaded', function() {
     loadPhases();
 });
 
-    //saving theme, phase,
-    document.addEventListener('DOMContentLoaded', function() {        
-        function savePhase() {
-            // Use currentBoxCount directly
-            const currentBoxCount = parseInt(localStorage.getItem('currentBoxCount') || '4', 10);
-        
-            for (let i = 1; i <= currentBoxCount; i++) {
-                // Get the checkbox element
-                const checkbox = document.getElementById(`checkbox-${i}`);
-                if (checkbox && checkbox.checked) {
-                    // Save text data
-                    const textBox = document.getElementById(`text-box-${i}`);
-                    if (textBox) {
-                        const phase = textBox.value;
-                        localStorage.setItem(`storyboardPhase-${i}`, phase);
-                    }
-        
-                    // Save input data if the checkbox is checked
-                    const inputField = document.getElementById(`input-${i}`);
-                    if (inputField) {
-                        const inputValue = inputField.value;
-                        localStorage.setItem(`storyboardInput-${i}`, inputValue);
-                    } else {
-                        localStorage.removeItem(`storyboardInput-${i}`); // Remove if no input
-                    }
-        
-                    // Save image data
-                    const fileInput = document.getElementById(`file-input-${i}`);
-                    if (fileInput && fileInput.files.length > 0) {
-                        const file = fileInput.files[0];
-                        const reader = new FileReader();
-                        reader.onload = function(event) {
-                            localStorage.setItem(`storyboardImage-${i}`, event.target.result);
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                } else {
-                    // If checkbox is not checked, remove saved data
-                    localStorage.removeItem(`storyboardPhase-${i}`);
-                    localStorage.removeItem(`storyboardInput-${i}`);
-                    localStorage.removeItem(`storyboardImage-${i}`);
+//saving theme, phase,
+document.addEventListener('DOMContentLoaded', function() {        
+    function savePhase() {
+        // Use currentBoxCount directly
+        const currentBoxCount = parseInt(localStorage.getItem('currentBoxCount') || '4', 10);
+    
+        for (let i = 1; i <= currentBoxCount; i++) {
+            // Get the checkbox element
+            const checkbox = document.getElementById(`checkbox-${i}`);
+            if (checkbox && checkbox.checked) {
+                // Save text data
+                const textBox = document.getElementById(`text-box-${i}`);
+                if (textBox) {
+                    const phase = textBox.value;
+                    localStorage.setItem(`storyboardPhase-${i}`, phase);
                 }
+    
+                // Save input data if the checkbox is checked
+                const inputField = document.getElementById(`input-${i}`);
+                if (inputField) {
+                    const inputValue = inputField.value;
+                    localStorage.setItem(`storyboardInput-${i}`, inputValue);
+                } else {
+                    localStorage.removeItem(`storyboardInput-${i}`); // Remove if no input
+                }
+    
+                // Save image data
+                const fileInput = document.getElementById(`file-input-${i}`);
+                if (fileInput && fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        localStorage.setItem(`storyboardImage-${i}`, event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            } else {
+                // If checkbox is not checked, remove saved data
+                localStorage.removeItem(`storyboardPhase-${i}`);
+                localStorage.removeItem(`storyboardInput-${i}`);
+                localStorage.removeItem(`storyboardImage-${i}`);
             }
-            alert('Phases saved!');
         }
-        
-        // Make savePhase accessible globally
-        window.savePhase = savePhase;
-        
-    });
-
-    document.getElementById('play-arpeggio').addEventListener('click', async () => {
-        // Get values from the four note inputs
-        const note1 = document.getElementById('note1').value.trim();
-        const note2 = document.getElementById('note2').value.trim();
-        const note3 = document.getElementById('note3').value.trim();
-        const note4 = document.getElementById('note4').value.trim();
-
-        // Combine the notes into an array and filter out any empty strings
-        const chordNotes = [note1, note2, note3, note4].filter(note => note);
-
-        // If all fields are empty, do nothing
-        if (chordNotes.length === 0) return;
-        
-        // Get the selected pattern from the dropdown
-        const pattern = document.getElementById('style-select').value;
-
-        // Define rhythm patterns based on the selected pattern
-        const rhythmPatterns = {
-            start: [0.5, 0.1, 0.1, 0.1],    // Short, medium, long
-            rising: [0.1, 0.2, 0.3, 0.7], // Gradual increase
-            peak: [0.7, 0.7, 0.7, 0.7],      // Medium, long, very long
-            semiend: [0.1, 0.1, 0.1, 0.3], // Medium to long
-            end: [0.1, 0.1, 0.1, 0.5]       // Long to very long
-        };
-
-        const rhythmPattern = rhythmPatterns[pattern] || [0.2, 0.4, 0.6]; // Default to 'start'
-
-        // Initialize the Tone.js synth
-        const synth = new Tone.PolySynth().toDestination();
-        
-        // Ensure Tone.js is ready
-        await Tone.start();
-        
-        // Schedule each note with a different rhythm
-        chordNotes.forEach((note, index) => {
-            // Use the index to select the rhythm duration from the pattern
-            const duration = rhythmPattern[index % rhythmPattern.length];
-            
-            // Play the note with the specified duration and a small delay between each
-            synth.triggerAttackRelease(note, duration, Tone.now() + index * 0.3);
-        });
-    });
-
-    document.getElementById('play-chord').addEventListener('click', async () => {
-        // Get values from the three note inputs
-        const note1 = document.getElementById('note1').value.trim();
-        const note2 = document.getElementById('note2').value.trim();
-        const note3 = document.getElementById('note3').value.trim();
-        const note4 = document.getElementById('note4').value.trim();
+        alert('Phases saved!');
+    }
     
-        // Combine the notes into an array and filter out any empty strings
-        const chordNotes = [note1, note2, note3, note4].filter(note => note);
+    // Make savePhase accessible globally
+    window.savePhase = savePhase;
     
-        // If all fields are empty, do nothing
-        if (chordNotes.length === 0) return;
+});
+
+document.getElementById('play-arpeggio').addEventListener('click', async () => {
+    // Get values from the four note inputs
+    const note1 = document.getElementById('note1').value.trim();
+    const note2 = document.getElementById('note2').value.trim();
+    const note3 = document.getElementById('note3').value.trim();
+    const note4 = document.getElementById('note4').value.trim();
+
+    // Combine the notes into an array and filter out any empty strings
+    const chordNotes = [note1, note2, note3, note4].filter(note => note);
+
+    // If all fields are empty, do nothing
+    if (chordNotes.length === 0) return;
+    
+    // Get the selected pattern from the dropdown
+    const pattern = document.getElementById('style-select').value;
+
+    // Define rhythm patterns based on the selected pattern
+    const rhythmPatterns = {
+        start: [0.5, 0.1, 0.1, 0.1],    // Short, medium, long
+        rising: [0.1, 0.2, 0.3, 0.7], // Gradual increase
+        peak: [0.7, 0.7, 0.7, 0.7],      // Medium, long, very long
+        semiend: [0.1, 0.1, 0.1, 0.3], // Medium to long
+        end: [0.1, 0.1, 0.1, 0.5]       // Long to very long
+    };
+
+    const rhythmPattern = rhythmPatterns[pattern] || [0.2, 0.4, 0.6]; // Default to 'start'
+
+    // Initialize the Tone.js synth
+    const synth = new Tone.PolySynth().toDestination();
+    
+    // Ensure Tone.js is ready
+    await Tone.start();
+    
+    // Schedule each note with a different rhythm
+    chordNotes.forEach((note, index) => {
+        // Use the index to select the rhythm duration from the pattern
+        const duration = rhythmPattern[index % rhythmPattern.length];
         
-        // Initialize the Tone.js synth
-        const synth = new Tone.PolySynth().toDestination();
-        
-        // Ensure Tone.js is ready
-        await Tone.start();
-        
-        // Play the chord with a release time of 0.2 seconds
-        synth.triggerAttackRelease(chordNotes, 0.2);
+        // Play the note with the specified duration and a small delay between each
+        synth.triggerAttackRelease(note, duration, Tone.now() + index * 0.3);
     });
-            
-    document.getElementById('get-notes-button').addEventListener('click', () => {
-        // Get the chord input value
-        const chordInput = document.getElementById('chord-input').value.trim();
+});
+
+document.getElementById('play-chord').addEventListener('click', async () => {
+    // Get values from the three note inputs
+    const note1 = document.getElementById('note1').value.trim();
+    const note2 = document.getElementById('note2').value.trim();
+    const note3 = document.getElementById('note3').value.trim();
+    const note4 = document.getElementById('note4').value.trim();
+
+    // Combine the notes into an array and filter out any empty strings
+    const chordNotes = [note1, note2, note3, note4].filter(note => note);
+
+    // If all fields are empty, do nothing
+    if (chordNotes.length === 0) return;
+    
+    // Initialize the Tone.js synth
+    const synth = new Tone.PolySynth().toDestination();
+    
+    // Ensure Tone.js is ready
+    await Tone.start();
+    
+    // Play the chord with a release time of 0.2 seconds
+    synth.triggerAttackRelease(chordNotes, 0.2);
+});
         
-        // Get the notes from the chord using Tonal.js
-        const chord = Tonal.Chord.get(chordInput);
-        const chordNotes = chord.notes || []; // If chord is invalid, notes will be an empty array
-        
-        // Display the notes in the output field
-        document.getElementById('notes-output').value = chordNotes.join(' ');
-    });
+document.getElementById('get-notes-button').addEventListener('click', () => {
+    // Get the chord input value
+    const chordInput = document.getElementById('chord-input').value.trim();
+    
+    // Get the notes from the chord using Tonal.js
+    const chord = Tonal.Chord.get(chordInput);
+    const chordNotes = chord.notes || []; // If chord is invalid, notes will be an empty array
+    
+    // Display the notes in the output field
+    document.getElementById('notes-output').value = chordNotes.join(' ');
+});
         
     
 
