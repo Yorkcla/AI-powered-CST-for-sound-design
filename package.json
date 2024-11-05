@@ -1,7 +1,7 @@
 {
-  "name": "openai-webapp",
+  "name": "ai-powered-cst-for-sound-design",
   "version": "1.0.0",
-  "description": "A web application using Node.js and OpenAI API",
+  "description": "A web-based prototype for sound design using Node.js and the OpenAI API",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
