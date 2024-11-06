@@ -1,7 +1,7 @@
 # AI-Powered-CST-for-Sound-Design
 
 
-This web application prototype supports sonic interaction design through tonal cognition, integrating user scenarios and task analysis with functional harmony principles. It will be presented at the Australian HCI Conference 2024, with a publication link forthcoming.
+This web application prototype supports sonic interaction design through tonal cognition, integrating user scenarios and task analysis with functional harmony principles. It will be presented at the Australian Computer-Human Interaction Conference 2024, with a publication link forthcoming.
 
 
 ## Installation
