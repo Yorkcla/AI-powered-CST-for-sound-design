@@ -32,10 +32,9 @@ To set up the project locally, follow these steps:
    - `dotenv`
    - `express`
    - `openai`
-   - `tonal`
 
 
-   Note: `tone.js` is included via the `index2.html` file, and `tonal.js` can also be used via the browser. Installing only `chord` module can reduce the bundle size.
+   Note: `tone.js` and `tonal.js` are included via the `index2.html` file. 
 
 
 4. **Set up the OpenAI API key**:
