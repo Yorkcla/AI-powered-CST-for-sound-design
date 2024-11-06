@@ -17,7 +17,7 @@ To set up the project locally, follow these steps:
 
 
 2. **Install Node.js**:
-   Download and install Node.js from [nodejs.org](https://nodejs.org/). This will also install npm (Node Package Manager) automatically.
+   Download and install Node.js from [here](https://nodejs.org/). This will also install npm (Node Package Manager) automatically.
 
 
 3. **Install dependencies**:
