@@ -1,9 +1,3 @@
-<style>
-  section {
-    margin-bottom: 20px; /* Adds margin below each section */
-  }
-</style>
-
 # AI-Powered-CST-for-Sound-Design
 
 
