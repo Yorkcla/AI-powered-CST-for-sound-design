@@ -2,16 +2,15 @@
 require('dotenv').config();
 
 const express = require('express');
-const { Configuration, OpenAIApi } = require('openai');
+const OpenAI = require('openai');  // Updated import
 
 const app = express();
 const port = process.env.PORT || 3001;
 
 // Set up OpenAI configuration
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY, // This is the default, can be omitted
 });
-const openai = new OpenAIApi(configuration);
 
 // CORS middleware
 const cors = require('cors');
@@ -27,13 +26,13 @@ app.post('/generate-text', async (req, res) => {
     const { prompt } = req.body;
 
     try {
-        const response = await openai.createChatCompletion({
+        const response = await openai.chat.completions.create({  // Updated method
             model: 'gpt-4o-mini',
             messages: [{ role: 'user', content: prompt }],
             max_tokens: 500,
         });
 
-        res.json(response.data);
+        res.json(response.choices[0].message); // Access message in response
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -44,7 +43,7 @@ app.post('/generate-image', async (req, res) => {
     const { prompt } = req.body;
 
     try {
-        const response = await openai.createImage({
+        const response = await openai.images.generate({  // Updated method
             prompt: prompt,
             n: 1,
             model: 'dall-e-3',
@@ -53,7 +52,7 @@ app.post('/generate-image', async (req, res) => {
             size: '1024x1024'
         });
         
-        res.json(response.data);
+        res.json(response.data);  // Assuming response structure is the same
     } catch (error) {
         res.status(500).send(error.message);
     }

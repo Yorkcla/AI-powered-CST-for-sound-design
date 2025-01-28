@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     showStep(currentStep);
     modal.style.display = 'block';
-
 });
 
 // Next Step Button
@@ -56,42 +55,44 @@ if (nextStepBtn) {
         window.location.href = 'index2.html'; // Replace with the URL of your next HTML file
     });
 }
-    
+
 // Text form for the first half
-    document.getElementById('text-form-1').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const prompt = document.getElementById('text-prompt-1').value;
+document.getElementById('text-form-1').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const prompt = document.getElementById('text-prompt-1').value;
 
-        try {
-            const response = await fetch('http://localhost:3001/generate-text', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ prompt })
-            });
+    try {
+        const response = await fetch('http://localhost:3001/generate-text', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt })
+        });
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
 
-            const data = await response.json();
-            console.log('Text generation response:', data);
+        const data = await response.json();
+        console.log('Text generation response:', data);
 
-        const resultSentence = data.choices[0].message.content;
+        const resultSentence = data.choices && data.choices[0] && data.choices[0].message
+            ? data.choices[0].message.content
+            : 'No content available'; // Fallback for missing content
 
         // Append the user and chatbot messages to the chat history
-            appendMessage('user', prompt);
-            appendMessage('chatbot', resultSentence);
+        appendMessage('user', prompt);
+        appendMessage('chatbot', resultSentence);
 
-            // Clear the prompt input field
-            document.getElementById('text-prompt-1').value = '';
-        } catch (error) {
-            console.error('Error:', error);
-            appendMessage('chatbot', 'Error: ' + error.message);
-        }
-    });
-    
+        // Clear the prompt input field
+        document.getElementById('text-prompt-1').value = '';
+    } catch (error) {
+        console.error('Error:', error);
+        appendMessage('chatbot', 'Error: ' + error.message);
+    }
+});
+
 // Image form for the first half
 document.getElementById('image-form-1').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -119,7 +120,7 @@ document.getElementById('image-form-1').addEventListener('submit', async (event)
             <button id="save-image" data-url="${imgUrl}">Save Image</button>
         `;
         document.getElementById('image-result-1').innerHTML = imageHtml;
-        
+
         // Clear the image prompt input field
         document.getElementById('image-prompt-1').value = '';
     } catch (error) {
@@ -127,7 +128,7 @@ document.getElementById('image-form-1').addEventListener('submit', async (event)
         document.getElementById('image-result-1').textContent = 'Error: ' + error.message;
     }
 });
-    
+
 // Event listener for saving the image
 document.getElementById('image-result-1').addEventListener('click', (event) => {
     if (event.target && event.target.id === 'save-image') {
@@ -137,7 +138,7 @@ document.getElementById('image-result-1').addEventListener('click', (event) => {
         const link = document.createElement('a');
         link.href = imgUrl;
         link.download = 'generated-image.png';
-        link.target = '_blank'; //opens the image in a new tap
+        link.target = '_blank'; // Opens the image in a new tab
         link.click();
     }
 });
@@ -160,8 +161,8 @@ function updateProgressBar(percentage) {
 // Example: Update the progress bar to 50%
 updateProgressBar(30);
 
+// Add "Add Storyboard Box" button dynamically
 document.addEventListener('DOMContentLoaded', (event) => {
-    // Create the "Add Storyboard Box" button
     const addBoxBtn = document.createElement('button');
     addBoxBtn.textContent = 'Add Storyboard Box';
     addBoxBtn.style.marginBottom = '20px';
@@ -224,28 +225,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Attach event listeners for initial boxes
     attachUploadEventListener();
 });
-    
-    //saving theme, phase,
-    document.addEventListener('DOMContentLoaded', function() {
-        function saveTheme() {
-            const theme = document.getElementById('text-theme-1').value;
-            localStorage.setItem('storyboardTheme', theme);
-            alert('Theme saved!');
-        }
+
+// Saving theme and phase data
+document.addEventListener('DOMContentLoaded', function() {
+    function saveTheme() {
+        const theme = document.getElementById('text-theme-1').value;
+        localStorage.setItem('storyboardTheme', theme);
+        alert('Theme saved!');
+    }
 
     function savePhase() {
-        // Use currentBoxCount directly
         const currentBoxCount = parseInt(localStorage.getItem('currentBoxCount') || '4', 10);
-    
+
         for (let i = 1; i <= currentBoxCount; i++) {
-            // Save text data
             const textBox = document.getElementById(`text-box-${i}`);
             if (textBox) {
                 const phase = textBox.value;
                 localStorage.setItem(`storyboardPhase-${i}`, phase);
             }
-    
-            // Save image data
+
             const fileInput = document.getElementById(`file-input-${i}`);
             if (fileInput && fileInput.files.length > 0) {
                 const file = fileInput.files[0];
@@ -255,25 +253,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 };
                 reader.readAsDataURL(file);
             } else {
-                localStorage.removeItem(`storyboardImage-${i}`); // Remove if no image
+                localStorage.removeItem(`storyboardImage-${i}`);
             }
         }
         alert('Phases saved!');
     }
-    
+
     // Make saveTheme and savePhase accessible globally
     window.saveTheme = saveTheme;
     window.savePhase = savePhase;
-    
 });
 
+// Dropdown-based text generation
 document.getElementById('dropdown-form').addEventListener('submit', async (event) => {
     event.preventDefault();
-    
+
     const dropdownValue = document.getElementById('variable-dropdown').value;
     const themeValue = document.getElementById('text-theme-1').value;
 
-    // Construct the prompt with the selected values
     const prompt = `Provide a storyboard about ${themeValue} consisting of ${dropdownValue} phases, carefully aligned with task analysis and considering the user's cognitive flow. Please simply suggest the phases.`;
 
     try {
@@ -292,7 +289,9 @@ document.getElementById('dropdown-form').addEventListener('submit', async (event
         const data = await response.json();
         console.log('Dropdown-based text generation response:', data);
 
-        const resultSentence = data.choices[0].message.content;
+        const resultSentence = data.choices && data.choices[0] && data.choices[0].message
+            ? data.choices[0].message.content
+            : 'No content available'; // Fallback for missing content
 
         // Append the user and chatbot messages to the chat history
         appendMessage('user', prompt);
