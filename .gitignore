@@ -1,9 +1,6 @@
 # Node modules directory
 node_modules/
 
-# Environment variables file
-.env
-
 # Logs
 logs
 *.log
@@ -28,4 +25,6 @@ coverage
 
 # Dependency directories
 jspm_packages/
+
+#environmental variable for the code
 .env
