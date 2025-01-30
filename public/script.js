@@ -87,9 +87,9 @@ document.getElementById('text-form-1').addEventListener('submit', async (event) 
         const data = await response.json();
         console.log('Full response:', data);
         
-        if (data.content) {
+        if (data.message) {
             appendMessage('user', prompt);
-            appendMessage('chatbot', data.content);
+            appendMessage('chatbot', data.message);
         } else {
             appendMessage('chatbot', 'Unexpected response: ' + JSON.stringify(data));
         }
@@ -285,9 +285,9 @@ document.getElementById('dropdown-form').addEventListener('submit', async (event
         const data = await response.json();
         console.log('Dropdown-based text generation response:', data);
         
-        if (data.content) {
+        if (data.message) {
             appendMessage('user', prompt);
-            appendMessage('chatbot', data.content);
+            appendMessage('chatbot', data.message);
         } else {
             appendMessage('chatbot', 'Unexpected response: ' + JSON.stringify(data));
         }
