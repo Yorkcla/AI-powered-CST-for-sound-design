@@ -62,10 +62,13 @@ app.post('/generate-image', async (req, res) => {
             style: 'vivid',
             size: '1024x1024'
         });
+
+        console.log("Raw OpenAI response:", response);
         
-        res.json(response.data);  // Assuming response structure is the same
+        res.json({ data: response });  // Assuming response structure is the same
     } catch (error) {
-        res.status(500).send(error.message);
+        console.error("Error generating image:", error);
+        res.status(500).json({ error: "Image generation failed" });
     }
 });
 

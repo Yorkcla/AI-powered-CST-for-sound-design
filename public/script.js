@@ -120,14 +120,18 @@ document.getElementById('image-form-1').addEventListener('submit', async (event)
         const data = await response.json();
         console.log('Image generation response:', data);
 
-        const imgUrl = data.data[0].url;
+        if (!data || data.length === 0 || !data[0].url || !data[0].revised_prompt) {
+            throw new Error('Invalid response structure from the server: ' + JSON.stringify(data));
+        }
+
+        const imgUrl = data[0].url;
+
         const imageHtml = `
-            <img src="${imgUrl}" alt="Generated Image" style="width: 100%; height: auto;">
+            <img src="${imgUrl}" alt="Generated Image">
             <button id="save-image" data-url="${imgUrl}">Save Image</button>
         `;
         document.getElementById('image-result-1').innerHTML = imageHtml;
 
-        // Clear the image prompt input field
         document.getElementById('image-prompt-1').value = '';
     } catch (error) {
         console.error('Error:', error);
@@ -135,16 +139,15 @@ document.getElementById('image-form-1').addEventListener('submit', async (event)
     }
 });
 
-// Event listener for saving the image
 document.getElementById('image-result-1').addEventListener('click', (event) => {
     if (event.target && event.target.id === 'save-image') {
         const imgUrl = event.target.getAttribute('data-url');
 
-        // Create and click a link element to download the image
+        // ✅ Create a download link
         const link = document.createElement('a');
         link.href = imgUrl;
         link.download = 'generated-image.png';
-        link.target = '_blank'; // Opens the image in a new tab
+        link.target = '_blank';
         link.click();
     }
 });
