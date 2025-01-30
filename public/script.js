@@ -56,6 +56,16 @@ if (nextStepBtn) {
     });
 }
 
+// Function to create and append a new message element
+function appendMessage(role, content) {
+    const chatHistory = document.getElementById('text-result-1');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message ' + (role === 'user' ? 'user-message' : 'chatbot-message');
+    messageDiv.innerHTML = `<p>${content}</p>`;
+    chatHistory.appendChild(messageDiv);
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+}
+
 // Text form for the first half
 document.getElementById('text-form-1').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -75,24 +85,20 @@ document.getElementById('text-form-1').addEventListener('submit', async (event) 
         }
 
         const data = await response.json();
-        console.log('Text generation response:', data);
-
-        const resultSentence = data.choices && data.choices[0] && data.choices[0].message
-            ? data.choices[0].message.content
-            : 'No content available'; // Fallback for missing content
-
-        // Append the user and chatbot messages to the chat history
-        appendMessage('user', prompt);
-        appendMessage('chatbot', resultSentence);
-
-        // Clear the prompt input field
-        document.getElementById('text-prompt-1').value = '';
+        console.log('Full response:', data);
+        
+        if (data.content) {
+            appendMessage('user', prompt);
+            appendMessage('chatbot', data.content);
+        } else {
+            appendMessage('chatbot', 'Unexpected response: ' + JSON.stringify(data));
+        }
     } catch (error) {
         console.error('Error:', error);
-        appendMessage('chatbot', 'Error: ' + error.message);
+        appendMessage('chatbot', 'Error: ' + error.message, 'text-result-1');
     }
 });
-
+        
 // Image form for the first half
 document.getElementById('image-form-1').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -142,16 +148,6 @@ document.getElementById('image-result-1').addEventListener('click', (event) => {
         link.click();
     }
 });
-
-// Function to create and append a new message element
-function appendMessage(role, content) {
-    const chatHistory = document.getElementById('text-result-1');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message ' + (role === 'user' ? 'user-message' : 'chatbot-message');
-    messageDiv.innerHTML = `<p>${content}</p>`;
-    chatHistory.appendChild(messageDiv);
-    chatHistory.scrollTop = chatHistory.scrollHeight; // Auto-scroll to the bottom
-}
 
 function updateProgressBar(percentage) {
     const progressBar = document.getElementById('progress-bar');
@@ -288,17 +284,15 @@ document.getElementById('dropdown-form').addEventListener('submit', async (event
 
         const data = await response.json();
         console.log('Dropdown-based text generation response:', data);
-
-        const resultSentence = data.choices && data.choices[0] && data.choices[0].message
-            ? data.choices[0].message.content
-            : 'No content available'; // Fallback for missing content
-
-        // Append the user and chatbot messages to the chat history
-        appendMessage('user', prompt);
-        appendMessage('chatbot', resultSentence);
-
+        
+        if (data.content) {
+            appendMessage('user', prompt);
+            appendMessage('chatbot', data.content);
+        } else {
+            appendMessage('chatbot', 'Unexpected response: ' + JSON.stringify(data));
+        }
     } catch (error) {
         console.error('Error:', error);
-        appendMessage('chatbot', 'Error: ' + error.message);
+        appendMessage('chatbot', 'Error: ' + error.message, 'text-result-1');
     }
 });

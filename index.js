@@ -32,9 +32,20 @@ app.post('/generate-text', async (req, res) => {
             max_tokens: 500,
         });
 
-        res.json(response.choices[0].message); // Access message in response
+        console.log('Raw response:', response); // Log the raw response`
+
+        if (response.choices) {
+            res.json({ message: response.choices[0].message.content });
+        } else {
+            res.json({ message: 'No content received from OpenAI.' });
+        }
     } catch (error) {
-        res.status(500).send(error.message);
+        console.error('Error details:', error);
+        if (error instanceof OpenAI.APIError) {
+            res.status(error.status).send({ message: error.message });
+        } else {
+            res.status(500).send({ message: 'An unexpected error occurred.' });
+        }
     }
 });
 
