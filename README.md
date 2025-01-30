@@ -86,6 +86,10 @@ Once the server is running, you can access the application in your web browser a
 More details about the overall usage will be explained in the published paper, and the link will be uploaded soon.
 
 
+## Changelog
+- Updated OpenAI API connection to support version 4 (2025-01-31)
+
+
 ## License
 
 
