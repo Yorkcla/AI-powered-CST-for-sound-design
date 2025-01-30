@@ -64,15 +64,15 @@ document.getElementById('dropdown-form').addEventListener('submit', async (event
         const data = await response.json();
         console.log('Dropdown-based text generation response:', data);
 
-        const resultSentence = data.choices[0].message.content;
-
-        // Append the user and chatbot messages to the chat history
-        appendMessage('user', prompt);
-        appendMessage('chatbot', resultSentence);
-
+        if (data.message) {
+            appendMessage('user', prompt);
+            appendMessage('chatbot', data.message);
+        } else {
+            appendMessage('chatbot', 'Unexpected response: ' + JSON.stringify(data));
+        }
     } catch (error) {
         console.error('Error:', error);
-        appendMessage('chatbot', 'Error: ' + error.message);
+        appendMessage('chatbot', 'Error: ' + error.message, 'text-result-1');
     }
 });
 
@@ -100,15 +100,15 @@ document.getElementById('ask-button').addEventListener('click', async (event) =>
         const data = await response.json();
         console.log('Text generation response:', data);
 
-        const resultSentence = data.choices[0].message.content;
-
-        // Append the user and chatbot messages to the chat history
-        appendMessage('user', prompt);
-        appendMessage('chatbot', resultSentence);
-
+        if (data.message) {
+            appendMessage('user', prompt);
+            appendMessage('chatbot', data.message);
+        } else {
+            appendMessage('chatbot', 'Unexpected response: ' + JSON.stringify(data));
+        }
     } catch (error) {
         console.error('Error:', error);
-        appendMessage('chatbot', 'Error: ' + error.message);
+        appendMessage('chatbot', 'Error: ' + error.message, 'text-result-1');
     }
 });
     
@@ -164,17 +164,15 @@ document.getElementById('text-form-1').addEventListener('submit', async (event) 
         const data = await response.json();
         console.log('Text generation response:', data);
 
-        const resultSentence = data.choices[0].message.content;
-
-        // Append the user and chatbot messages to the chat history
-        appendMessage('user', prompt);
-        appendMessage('chatbot', resultSentence);
-
-        // Clear the prompt input field
-        document.getElementById('text-prompt-1').value = '';
+        if (data.message) {
+            appendMessage('user', prompt);
+            appendMessage('chatbot', data.message);
+        } else {
+            appendMessage('chatbot', 'Unexpected response: ' + JSON.stringify(data));
+        }
     } catch (error) {
         console.error('Error:', error);
-        appendMessage('chatbot', 'Error: ' + error.message);
+        appendMessage('chatbot', 'Error: ' + error.message, 'text-result-1');
     }
 });
 
