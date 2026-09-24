@@ -11,7 +11,7 @@ To set up the project locally, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/AI-powered-CST-for-sound-design.git
+   git clone https://github.com/Yorkcla/AI-powered-CST-for-sound-design.git
    cd AI-powered-CST-for-sound-design
    ```
 
@@ -83,7 +83,7 @@ Once the server is running, you can access the application in your web browser a
 9. Confirm the final output, including the theme, phase details, and assigned chords.
 
 
-More details about the overall usage will be explained in the published paper.
+More details about the overall usage are explained in the published paper.
 
 
 ## Changelog
